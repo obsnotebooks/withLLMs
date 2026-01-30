@@ -445,7 +445,7 @@ p .plot-d6a7b5 {
 html {
         background-color: white;
         margin:0;
-        padding:0;
+        padding:2vw; /* change this to 0 to override default */
         border:0;
       }
 
@@ -461,30 +461,34 @@ body {
 
 /* from here on you should create your own styles */
     </style>
-  <meta name="generator" content="Observable Notebook Kit v1.5.1"><title>Setting up Observable Notebook Kit</title>  <script type="module" crossorigin src="./assets/setupnotebookkit-fgQ-S9VM.js"></script>
+  <meta name="generator" content="Observable Notebook Kit v1.5.1"><title>Setting up Observable Notebook Kit</title>  <script type="module" crossorigin src="./assets/setupnotebookkit-aOlb7wgj.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/index-BoQGnnIN.js">
 </head>
   <body>
     <main><div id="cell-1" class="observablehq observablehq--cell"><div><h1>Setting up Observable Notebook Kit</h1>
+<hr>
+</div></div><div id="cell-20" class="observablehq observablehq--cell"><div><h2 id="download-and-install-observable-desktop" tabindex="-1"><a href="#download-and-install-observable-desktop">Download and Install Observable Desktop</a></h2>
 </div></div><div id="cell-2" class="observablehq observablehq--cell"><div><p>If you use a <strong>Mac</strong> computer, then please dowload and use <strong>Observable Desktop</strong>.</p>
 <p>Go to <a href="https://observablehq.com/notebook-kit/desktop">https://observablehq.com/notebook-kit/desktop</a> and then scroll down to the Download link. (If you have time and interest, watch the video.) Install the app.</p>
 </div></div><div id="cell-3" class="observablehq observablehq--cell"><div><p><em>If you use a <strong>Windows PC</strong> or other computer, then you will be using your own development editor (like Visual Studio Code) which is a little more complicated but can be made to work in consultation with myself.</em></p>
-</div></div><div id="cell-4" class="observablehq observablehq--cell"><div><p><strong>Observable Desktop</strong> is a notebook editor that creates, edits and saves files that are, basically, HTML (and have .html as their extension). You will be editing these files inside a folder that is set up to use the <a href="https://observablehq.com/notebook-kit/kit"><strong>Observable Notebook Kit</strong></a> in order to turn your notebooks into publishable web sites.</p>
-</div></div><div id="cell-7" class="observablehq observablehq--cell"><div><h2 id="create-your-first-project-folder" tabindex="-1"><a href="#create-your-first-project-folder">Create your first project folder</a></h2>
-<ol>
-<li>In whatever way is most comfortable for you (and best organized) create a folder called something appropriate like: <code>ObservableNotebooks</code>. (Note: You will move/upload this folder to your shared-with-the Google Drive folder early in the semester.)</li>
+</div></div><div id="cell-4" class="observablehq observablehq--cell"><div><p>To use <strong>Observable Desktop</strong> you will need a free Observable account. Go to <a href="https://observablehq.com/notebook-kit/desktop-guide">the Observable Desktop Guide</a> to learn how to do this and also read through the guide for information about editing.</p>
+<hr>
+</div></div><div id="cell-21" class="observablehq observablehq--cell"><div><h2 id="create-your-first-project-folder-and-set-up-the-notebook-kit" tabindex="-1"><a href="#create-your-first-project-folder-and-set-up-the-notebook-kit">Create your First Project Folder and Set Up the Notebook Kit</a></h2>
+<p>The desktop app is a notebook editor that creates, edits and saves files that are, basically, HTML (and have .html as their extension). You will be editing these files inside folders that are also set up to use the <a href="https://observablehq.com/notebook-kit/kit"><strong>Observable Notebook Kit</strong></a> in order to turn your notebooks into publishable web sites.</p>
+</div></div><div id="cell-7" class="observablehq observablehq--cell"><div><ol>
+<li>In whatever way is most comfortable for you (and best organized) create a folder called something appropriate like: <code>ObservableNotebooks</code>. <!-- (Note: You will move/upload this folder to your shared-with-the Google Drive folder early in the semester.) --></li>
 <li>Inside this folder make another folder called <code>docs</code>. This is where you will create and store your notebook files.</li>
 <li>Open <strong>Observable Desktop</strong> and then edit the <code>Untitled</code> default document that appears. Edit the title and create a few more <strong>MarkDown</strong> (<code>md</code>) cells with some (placeholder) text in them.</li>
 <li>Select <code>File —&gt; Save As...</code> to save what you’ve done, with a name based on the title you chose, inside the <code>docs</code> folder of your project folder.</li>
 <li>Now use your Terminal program and its Command Line Interface (CLI) to navigate to your <code>ObservableNotebooks</code> project folder. (If you haven’t done this before, we’ll do it Together First In Workshop <strong>TFIW</strong>.)</li>
 <li>And, if you’ve never done so before, you will need to install <code>node.js</code> and a <em>Package Manager</em> called <code>npm</code> (Node Package Manager). Go to step 8 if you already have <code>npm</code> installed, otherwise:</li>
-<li>Download the installer for <code>node.js</code> that is best for your computer. If you have a Mac <a href="https://nodejs.org/en/download">download from here</a>. Verify at the terminal with (on separate lines) <code>node -v</code> and <code>npm -v</code> (which will show the installed versions of these packages).</li>
-<li>Next, at the Terminal prompt type: <code>npm add @observablehq/notebook-kit</code>.</li>
+<li>Download the installer for <code>node.js</code> that is best for your computer. If you have a Mac <a href="https://nodejs.org/en/download">download from here</a>. Verify at the terminal with (on separate lines):<br><code>node -v</code><br><code>npm -v</code><br> (which will show the installed versions of these packages).</li>
+<li>Next, at the Terminal prompt type:<br><code>npm add @observablehq/notebook-kit</code></li>
 <li>Hopefully you have a plain text editor that you like to use. Find and edit the file <code>package.json</code> (which has been created by the previous step) so that it looks like this (it’s the <code>scripts</code> part that needs adding):</li>
 </ol>
 <pre data-language="json"><code class="language-json">{
   "dependencies": {
-    "@observablehq/notebook-kit": "^1.4.1"
+    "@observablehq/notebook-kit": "^1.5.0"
   },
   "scripts": {
     "preview": "notebooks preview --root docs --template docs/nochrome.tmpl",
@@ -493,7 +497,7 @@ body {
 }
 </code></pre>
 <ol start="10">
-<li>This file refers to another, a template, called <code>nochrome.tmpl</code> so now you need to create this file inside your <code>docs</code> folder. Make a new plain text file using you editor and save it in the <code>docs</code> folder. <strong>Make sure</strong> the file name has that <strong><code>.tmpl</code></strong> extension. Its contents should look like this:</li>
+<li>This file refers to another, a template file, called <code>nochrome.tmpl</code> so now you also need to create this file inside your <code>docs</code> folder. Make a new plain text file using you editor and save it in the <code>docs</code> folder. <strong>Make sure</strong> the file name has that <strong><code>.tmpl</code></strong> extension. Its contents should look like this:</li>
 </ol>
 <pre data-language="html"><code class="language-html"><span class="tok-meta">&lt;!doctype html&gt;</span>
 &lt;<span class="tok-keyword">html</span> <span class="tok-definition">lang</span>=<span class="tok-string">"en"</span>&gt;
@@ -508,7 +512,7 @@ body {
       html {
         background-color: white;
         margin:0;
-        padding:0;
+        padding::2vw; /* change this to 0 to override default */
         border:0;
       }
       body {
@@ -527,13 +531,70 @@ body {
 <ol start="11">
 <li>Finally (for now) in your terminal, type: <code>npm run preview</code>. Then type <code>h</code> and hit return. We’ll do and discuss the rest <strong>TIFW</strong>.</li>
 </ol>
-</div></div><div id="cell-12" class="observablehq observablehq--cell"><div><h2 id="publishing-your-project-to-the-web-using-git-hub-pages" tabindex="-1"><a href="#publishing-your-project-to-the-web-using-git-hub-pages">Publishing your project to the web using GitHub Pages</a></h2>
-<ul>
-<li>need to create or copy: <code>.github/workflows/publish.yml</code> into your project</li>
-<li>make sure workflows are triggered correctly</li>
-</ul>
-</div></div><div id="cell-11" class="observablehq observablehq--cell"><div><hr>
-</div></div><div id="cell-8" class="observablehq observablehq--cell"><div id="display"></div></div><div id="cell-9" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-variable">document</span>.<span class="tok-definition">getElementById</span>(<span class="tok-string">"display"</span>).<span class="tok-definition">innerText</span> = <span class="tok-string">`This is the innerText of an HTML div element whose id is "display".</span>
+</div></div><div id="cell-24" class="observablehq observablehq--cell"><div><hr>
+<h2 id="adding-an-anthropic-api-key-to-activate-llm-assistance" tabindex="-1"><a href="#adding-an-anthropic-api-key-to-activate-llm-assistance">Adding an Anthropic API Key to Activate LLM Assistance</a></h2>
+<p>… <strong>TIFW</strong> …</p>
+</div></div><div id="cell-22" class="observablehq observablehq--cell"><div><hr>
+<h2 id="some-live-code-cells" tabindex="-1"><a href="#some-live-code-cells">Some Live Code Cells</a></h2>
+</div></div><div id="cell-13" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-keyword">let</span> <span class="tok-definition">count</span> = <span class="tok-literal">0</span>;
+<span class="tok-keyword">let</span> <span class="tok-definition">intervalId</span>;
+
+<span class="tok-keyword">const</span> <span class="tok-definition">displayElement</span> = <span class="tok-variable">display</span>(<span class="tok-variable">htl</span>.<span class="tok-definition">html</span><span class="tok-string">`&lt;div class="demo"&gt;</span>${<span class="tok-variable">count</span>}<span class="tok-string">&lt;/div&gt;`</span>);
+
+<span class="tok-keyword">function</span> <span class="tok-definition">updateCounter</span>() {
+    <span class="tok-variable">displayElement</span>.<span class="tok-definition">textContent</span> = <span class="tok-variable">count</span>;
+    <span class="tok-variable">count</span> = ++<span class="tok-variable">count</span> % <span class="tok-literal">10</span>;
+}
+<span class="tok-comment">// Start the counter after initial display</span>
+<span class="tok-variable">intervalId</span> = <span class="tok-variable">setInterval</span>(<span class="tok-variable">updateCounter</span>, <span class="tok-literal">1000</span>);
+<span class="tok-comment">// Stop the counter when the cell is invalidated (e.g., when re-run)</span>
+<span class="tok-variable">invalidation</span>.<span class="tok-definition">then</span>(() =&gt; <span class="tok-variable">clearInterval</span>(<span class="tok-variable">intervalId</span>));</code></pre><div id="cell-15" class="observablehq observablehq--cell"></div><pre data-language="ojs"><code class="language-ojs">o = {
+  let o = 0;
+  while (true) {
+    if (o &gt;= 1) { o = 0; }
+    yield o;
+    o += 0.02;
+  }
+}</code></pre><div id="cell-19" class="observablehq observablehq--cell"><p class="demo" style="opacity:">Blink</p>
+<style>
+  .demo {
+    color:red;
+    font-weight:bold;
+    font-size:2vw;
+  }
+</style></div><pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">p</span> <span class="tok-definition">class</span>=<span class="tok-string">"demo"</span> <span class="tok-definition">style</span>=<span class="tok-string">opacity:${o}</span>&gt;Blink&lt;/<span class="tok-keyword">p</span>&gt;
+&lt;<span class="tok-keyword">style</span>&gt;
+  .demo {
+    color:red;
+    font-weight:bold;
+    font-size:2vw;
+  }
+&lt;/<span class="tok-keyword">style</span>&gt;</code></pre><div id="cell-12" class="observablehq observablehq--cell"><div><h2 id="publishing-your-project-to-the-web-using-git-hub-pages" tabindex="-1"><a href="#publishing-your-project-to-the-web-using-git-hub-pages">Publishing your project to the web using GitHub Pages</a></h2>
+<p>… <em><strong>Coming Soon !</strong></em> …</p>
+<!-- - need to create or copy: `.github/workflows/publish.yml` into your project
+- make sure workflows are triggered correctly -->
+<hr>
+<!--
+git init
+copy .github/workflows/publish.yml from an existing repo
+git add *
+git commit -m "first commit"
+--></div></div><div id="cell-25" class="observablehq observablehq--cell"><div><h2 id="downloading-legacy-notebooks-from-the-observable-platform" tabindex="-1"><a href="#downloading-legacy-notebooks-from-the-observable-platform">Downloading Legacy Notebooks from the Observable Platform</a></h2>
+<p>… <em><strong>More on this soon</strong></em> …</p>
+<p>Use a command of this form in a folder that has the Notebook Kit set up:
+<code>notebooks download https://observablehq.com/@[user]/[nbk] &gt; docs/[nbk].html</code></p>
+<hr>
+</div></div><div id="cell-17" class="observablehq observablehq--cell"><div><h2 id="some-more-demo-cells-of-various-types" tabindex="-1"><a href="#some-more-demo-cells-of-various-types">Some More Demo Cells of Various Types</a></h2>
+</div></div><div id="cell-14" class="observablehq observablehq--cell"></div><pre data-language="ojs"><code class="language-ojs">viewof count = {
+  let i = 0;
+  const button = html`&lt;button&gt;Count: ${i}`;
+  button.onclick = () =&gt; {
+    button.textContent = `Count: ${++i}`;
+    button.dispatchEvent(new CustomEvent("input"));
+  };
+  return button;
+}</code></pre><div id="cell-11" class="observablehq observablehq--cell"><div><hr>
+</div></div><div id="cell-8" class="observablehq observablehq--cell"><div id="display"></div></div><pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">div</span> <span class="tok-definition">id</span>=<span class="tok-string">"display"</span>&gt;&lt;/<span class="tok-keyword">div</span>&gt;</code></pre><div id="cell-9" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-variable">document</span>.<span class="tok-definition">getElementById</span>(<span class="tok-string">"display"</span>).<span class="tok-definition">innerText</span> = <span class="tok-string">`This is the innerText of an HTML div element whose id is "display".</span>
 <span class="tok-string">This text was put into the element by JavaScript in the following cell.`</span></code></pre></main>
   
 
