@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@observablehq/notebook-kit": "^1.5.1"
+  },
+  "scripts": {
+    "preview": "notebooks preview --root docs --template docs/nochrome.tmpl",
+    "build": "notebooks build --root docs --template docs/nochrome.tmpl --out ../dist -- docs/*.html"
+  }
+}

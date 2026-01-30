@@ -1,0 +1,172 @@
+<!doctype html>
+<notebook theme="air">
+  <title>Setting up Observable Notebook Kit</title>
+  <script id="1" type="text/markdown">
+    # Setting up Observable Notebook Kit
+    ---
+  </script>
+  <script id="20" type="text/markdown">
+    ## Download and Install Observable Desktop
+  </script>
+  <script id="2" type="text/markdown">
+    If you use a **Mac** computer, then please dowload and use **Observable Desktop**.
+
+    Go to https://observablehq.com/notebook-kit/desktop and then scroll down to the Download link. (If you have time and interest, watch the video.) Install the app.
+  </script>
+  <script id="3" type="text/markdown">
+    *If you use a **Windows PC** or other computer, then you will be using your own development editor (like Visual Studio Code) which is a little more complicated but can be made to work in consultation with myself.*
+  </script>
+  <script id="4" type="text/markdown">
+    To use **Observable Desktop** you will need a free Observable account. Go to [the Observable Desktop Guide](https://observablehq.com/notebook-kit/desktop-guide) to learn how to do this and also read through the guide for information about editing.
+
+    ---
+  </script>
+  <script id="21" type="text/markdown">
+    ## Create your First Project Folder and Set Up the Notebook Kit
+    The desktop app is a notebook editor that creates, edits and saves files that are, basically, HTML (and have .html as their extension). You will be editing these files inside folders that are also set up to use the [**Observable Notebook Kit**](https://observablehq.com/notebook-kit/kit) in order to turn your notebooks into publishable web sites.
+  </script>
+  <script id="7" type="text/markdown">
+    1. In whatever way is most comfortable for you (and best organized) create a folder called something appropriate like: `ObservableNotebooks`. <!-- (Note: You will move/upload this folder to your shared-with-the Google Drive folder early in the semester.) -->
+    2. Inside this folder make another folder called `docs`. This is where you will create and store your notebook files.
+    3. Open **Observable Desktop** and then edit the `Untitled` default document that appears. Edit the title and create a few more **MarkDown** (`md`) cells with some (placeholder) text in them.
+    4. Select `File —> Save As...` to save what you've done, with a name based on the title you chose, inside the `docs` folder of your project folder.
+    5. Now use your Terminal program and its Command Line Interface (CLI) to navigate to your `ObservableNotebooks` project folder. (If you haven't done this before, we’ll do it Together First In Workshop **TFIW**.)
+    6. And, if you’ve never done so before, you will need to install `node.js` and a *Package Manager* called `npm` (Node Package Manager). Go to step 8 if you already have `npm` installed, otherwise:
+    7. Download the installer for `node.js` that is best for your computer. If you have a Mac [download from here](https://nodejs.org/en/download). Verify at the terminal with (on separate lines):<br>`node -v`<br>`npm -v`<br> (which will show the installed versions of these packages).
+    9. Next, at the Terminal prompt type:<br>`npm add @observablehq/notebook-kit`
+    10. Hopefully you have a plain text editor that you like to use. Find and edit the file `package.json` (which has been created by the previous step) so that it looks like this (it’s the `scripts` part that needs adding):
+    ````json
+    {
+      "dependencies": {
+        "@observablehq/notebook-kit": "^1.5.0"
+      },
+      "scripts": {
+        "preview": "notebooks preview --root docs --template docs/nochrome.tmpl",
+        "build": "notebooks build --root docs --template docs/nochrome.tmpl --out ../dist -- docs/*.html"
+      }
+    }
+    ````
+    10. This file refers to another, a template file, called `nochrome.tmpl` so now you also need to create this file inside your `docs` folder. Make a new plain text file using you editor and save it in the `docs` folder. **Make sure** the file name has that **`.tmpl`** extension. Its contents should look like this:
+    ````html
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+          @import url("observable:styles/index.css");
+          * {
+            margin-top:0 !important;
+          }
+          html {
+            background-color: white;
+            margin:0;
+            padding::2vw; /* change this to 0 to override default */
+            border:0;
+          }
+          body {
+            max-width: none;
+            margin:0;
+            padding:0;
+            border:0;
+          }
+        </style>
+      </head>
+      <body>
+        <main></main>
+      </body>
+    </html>
+    ````
+    11. Finally (for now) in your terminal, type: `npm run preview`. Then type `h` and hit return. We'll do and discuss the rest **TIFW**.
+  </script>
+  <script id="24" type="text/markdown">
+    ---
+    ## Adding an Anthropic API Key to Activate LLM Assistance
+    ... **TIFW** ...
+  </script>
+  <script id="22" type="text/markdown">
+    ---
+    ## Some Live Code Cells
+  </script>
+  <script id="13" type="module" pinned="">
+    let count = 0;
+    let intervalId;
+
+    const displayElement = display(htl.html`<div class="demo">${count}</div>`);
+
+    function updateCounter() {
+        displayElement.textContent = count;
+        count = ++count % 10;
+    }
+    // Start the counter after initial display
+    intervalId = setInterval(updateCounter, 1000);
+    // Stop the counter when the cell is invalidated (e.g., when re-run)
+    invalidation.then(() => clearInterval(intervalId));
+  </script>
+  <script id="15" type="application/vnd.observable.javascript" pinned="">
+    o = {
+      let o = 0;
+      while (true) {
+        if (o >= 1) { o = 0; }
+        yield o;
+        o += 0.02;
+      }
+    }
+  </script>
+  <script id="19" type="text/html" pinned="">
+    <p class="demo" style=opacity:${o}>Blink</p>
+    <style>
+      .demo {
+        color:red;
+        font-weight:bold;
+        font-size:2vw;
+      }
+    </style>
+  </script>
+  <script id="12" type="text/markdown">
+    ## Publishing your project to the web using GitHub Pages
+    ... ***Coming Soon !*** ...
+    <!-- - need to create or copy: `.github/workflows/publish.yml` into your project
+    - make sure workflows are triggered correctly -->
+    ---
+    <!--
+    git init
+    copy .github/workflows/publish.yml from an existing repo
+    git add *
+    git commit -m "first commit"
+    -->
+  </script>
+  <script id="25" type="text/markdown">
+    ## Downloading Legacy Notebooks from the Observable Platform
+    ... ***More on this soon*** ...
+
+    Use a command of this form in a folder that has the Notebook Kit set up:
+    ```notebooks download https://observablehq.com/@[user]/[nbk] > docs/[nbk].html```
+
+    ---
+  </script>
+  <script id="17" type="text/markdown">
+    ## Some More Demo Cells of Various Types
+  </script>
+  <script id="14" type="application/vnd.observable.javascript" pinned="">
+    viewof count = {
+      let i = 0;
+      const button = html`<button>Count: ${i}`;
+      button.onclick = () => {
+        button.textContent = `Count: ${++i}`;
+        button.dispatchEvent(new CustomEvent("input"));
+      };
+      return button;
+    }
+  </script>
+  <script id="11" type="text/markdown">
+    ---
+  </script>
+  <script id="8" type="text/html" pinned="">
+    <div id="display"></div>
+  </script>
+  <script id="9" type="module" pinned="">
+    document.getElementById("display").innerText = `This is the innerText of an HTML div element whose id is "display".
+    This text was put into the element by JavaScript in the following cell.`
+  </script>
+</notebook>
