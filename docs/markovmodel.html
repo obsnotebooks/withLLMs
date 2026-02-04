@@ -1,0 +1,127 @@
+<!doctype html>
+<notebook theme="cotton">
+  <title>Markov Model</title>
+  <script id="1" type="text/markdown">
+    # Markov Model
+  </script>
+  <script id="2" type="module" pinned="">
+    // Sample text data for training the Markov model
+    const sampleText = `the tongue gets clogged with mud that can happen too only one remedy then pull it in and suck it swallow the mud or spit it out it’s one or the other and question is it nourishing and vistas last a moment with that
+    I fill my mouth with it that can happen too it’s another of my resources last a moment with that and question if swallowed would it nourish and opening up of vistas they are good moments
+    rosy in the mud the tongue lolls out again what are the hands at all this time one must always try and see what the hands are up to well the left as we have seen still clutches the sack and the right`;
+    display("Sample text loaded for Markov model training");
+  </script>
+  <script id="3" type="module" pinned="">
+    // Function to build a Markov chain from text
+    function buildMarkovChain(text, order = 2) {
+      const words = text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+      const chain = new Map();
+
+      for (let i = 0; i <= words.length - order - 1; i++) {
+        const state = words.slice(i, i + order).join(' ');
+        const nextWord = words[i + order];
+
+        if (!chain.has(state)) {
+          chain.set(state, []);
+        }
+        chain.get(state).push(nextWord);
+      }
+
+      return chain;
+    }
+
+    // Build the Markov chain
+    const markovChain = buildMarkovChain(sampleText, 2);
+
+    display(`Markov chain built with ${markovChain.size} states`);
+  </script>
+  <script id="4" type="module" pinned="">
+    // Function to generate text using the Markov chain
+    function generateText(chain, length = 50, order = 2) {
+      const states = Array.from(chain.keys());
+      let currentState = states[Math.floor(Math.random() * states.length)];
+      let result = currentState.split(' ');
+
+      for (let i = 0; i < length - order; i++) {
+        const possibleWords = chain.get(currentState);
+        if (!possibleWords || possibleWords.length === 0) {
+          // If we hit a dead end, pick a random state
+          currentState = states[Math.floor(Math.random() * states.length)];
+          result.push(...currentState.split(' '));
+          continue;
+        }
+
+        const nextWord = possibleWords[Math.floor(Math.random() * possibleWords.length)];
+        result.push(nextWord);
+
+        // Update current state by shifting the window
+        const stateWords = currentState.split(' ');
+        stateWords.shift();
+        stateWords.push(nextWord);
+        currentState = stateWords.join(' ');
+      }
+
+      return result.join(' ');
+    }
+
+    // Generate sample text
+    const generatedText = generateText(markovChain, 30);
+    display(`Generated text: "${generatedText}"`);
+  </script>
+  <script id="5" type="module" pinned="">
+    // Interactive text generator
+    const lengthInput = view(Inputs.range([10, 100], {label: "Text length", value: 30, step: 1}));
+    const orderInput = view(Inputs.range([1, 4], {label: "Markov order", value: 2, step: 1}));
+    const generateButton = view(Inputs.button("Generate New Text"));
+  </script>
+  <script id="6" type="module" pinned="">
+    // Reactive text generation based on inputs
+    const currentChain = buildMarkovChain(sampleText, orderInput);
+    const newText = generateText(currentChain, lengthInput, orderInput);
+
+    // Trigger regeneration when button is clicked
+    generateButton;
+
+    display(htl.html`
+      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 10px 0;">
+        <h3>Generated Text (Order: ${orderInput}, Length: ${lengthInput} words)</h3>
+        <p style="font-style: italic; line-height: 1.6;">"${newText}"</p>
+      </div>
+    `);
+  </script>
+  <script id="7" type="module" pinned="">
+    // Visualize the Markov chain structure
+    const chainData = Array.from(markovChain.entries()).map(([state, nextWords]) => ({
+      state,
+      transitions: nextWords.length,
+      uniqueTransitions: new Set(nextWords).size,
+      nextWords: nextWords.join(', ')
+    }));
+
+    display(Inputs.table(chainData.slice(0, 10), {
+      columns: ["state", "transitions", "uniqueTransitions"],
+      header: {
+        state: "State (2-gram)",
+        transitions: "Total Transitions",
+        uniqueTransitions: "Unique Next Words"
+      }
+    }));
+  </script>
+  <script id="8" type="text/markdown">
+    ## How the Markov Model Works
+
+    This implementation demonstrates a **Markov chain** for text generation:
+
+    1. **Training**: The model analyzes the sample text and builds a chain of word sequences (n-grams) and their possible next words
+    2. **Order**: The "order" parameter determines how many previous words influence the next word choice
+    3. **Generation**: Starting from a random state, the model probabilistically selects the next word based on the training data
+
+    **Key Features:**
+    - Adjustable Markov order (1-4 words of context)
+    - Variable output length
+    - Interactive regeneration
+    - Visualization of the chain structure
+
+    Try adjusting the parameters above to see how they affect the generated text quality and coherence!
+  </script>
+</notebook>
