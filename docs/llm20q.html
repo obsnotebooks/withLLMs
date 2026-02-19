@@ -24,8 +24,15 @@
     }));
   </script>
   <script id="4" type="module" pinned="">
+    // Game state and logic
+    const gameState = {
+      secretThing: "bicycle",
+      questions: [],
+      gameOver: false
+    };
+
     // Process questions and give answers
-    if (questionInput && !gameOver) {
+    if (questionInput && !gameState.gameOver) {
       const question = questionInput.toLowerCase();
       let answer = "";
 
@@ -48,7 +55,7 @@
         answer = "Yes, it has pedals!";
       } else if (question.includes("bicycle") || question.includes("bike")) {
         answer = "🎉 YES! It's a bicycle! You got it!";
-        gameOver = true;
+        gameState.gameOver = true;
       } else if (question.includes("car") || question.includes("truck")) {
         answer = "No, it's not a car or truck.";
       } else if (question.includes("metal")) {
@@ -67,15 +74,18 @@
         answer = responses[Math.floor(Math.random() * responses.length)];
       }
 
-      questions.push({ question: questionInput, answer });
+      gameState.questions.push({ question: questionInput, answer });
 
-      display(`**Q${questions.length}:** ${questionInput}`);
+      display(`**Q${gameState.questions.length}:** ${questionInput}`);
       display(`**A:** ${answer}`);
 
-      if (questions.length >= 20 && !gameOver) {
+      if (gameState.questions.length >= 20 && !gameState.gameOver) {
         display("🕐 That's 20 questions! The answer was: **bicycle**");
-        gameOver = true;
+        gameState.gameOver = true;
       }
+
+      // Show question count
+      display(`Questions asked: ${gameState.questions.length}/20`);
     }
   </script>
   <script id="5" type="module" pinned="">
