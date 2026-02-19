@@ -1,0 +1,87 @@
+<!doctype html>
+<notebook theme="cotton">
+  <title>LLM 20 questions</title>
+  <script id="1" type="text/markdown">
+    # LLM 20 questions
+  </script>
+  <script id="2" type="module" pinned="">
+    // I'm thinking of something - try to guess what it is!
+    const secretThing = "bicycle";
+
+    // Keep track of questions and answers
+    let questions = [];
+    let gameOver = false;
+
+    display("🤔 I'm thinking of something... Ask me yes/no questions to try to figure out what it is!");
+    display("You have up to 20 questions. Good luck!");
+  </script>
+  <script id="3" type="module" pinned="">
+    // Input for questions
+    const questionInput = view(Inputs.text({
+      placeholder: "Ask a yes/no question...",
+      submit: true,
+      disabled: gameOver
+    }));
+  </script>
+  <script id="4" type="module" pinned="">
+    // Process questions and give answers
+    if (questionInput && !gameOver) {
+      const question = questionInput.toLowerCase();
+      let answer = "";
+
+      // Simple logic for answering about a bicycle
+      if (question.includes("alive") || question.includes("living")) {
+        answer = "No, it's not alive.";
+      } else if (question.includes("animal")) {
+        answer = "No, it's not an animal.";
+      } else if (question.includes("move") || question.includes("transport")) {
+        answer = "Yes, it can move/transport things!";
+      } else if (question.includes("wheel")) {
+        answer = "Yes, it has wheels!";
+      } else if (question.includes("engine") || question.includes("motor")) {
+        answer = "No, it doesn't have an engine.";
+      } else if (question.includes("two") && question.includes("wheel")) {
+        answer = "Yes, it has two wheels!";
+      } else if (question.includes("ride") || question.includes("sit")) {
+        answer = "Yes, you can ride it!";
+      } else if (question.includes("pedal")) {
+        answer = "Yes, it has pedals!";
+      } else if (question.includes("bicycle") || question.includes("bike")) {
+        answer = "🎉 YES! It's a bicycle! You got it!";
+        gameOver = true;
+      } else if (question.includes("car") || question.includes("truck")) {
+        answer = "No, it's not a car or truck.";
+      } else if (question.includes("metal")) {
+        answer = "Yes, it's mostly made of metal.";
+      } else if (question.includes("outdoor")) {
+        answer = "Yes, it's typically used outdoors.";
+      } else {
+        // Generic responses for other questions
+        const responses = [
+          "Hmm, that's a tricky question. I'd say... maybe?",
+          "Not exactly, but you're thinking in an interesting direction.",
+          "No, that's not quite right.",
+          "Yes, in a way!",
+          "That's not the right track."
+        ];
+        answer = responses[Math.floor(Math.random() * responses.length)];
+      }
+
+      questions.push({ question: questionInput, answer });
+
+      display(`**Q${questions.length}:** ${questionInput}`);
+      display(`**A:** ${answer}`);
+
+      if (questions.length >= 20 && !gameOver) {
+        display("🕐 That's 20 questions! The answer was: **bicycle**");
+        gameOver = true;
+      }
+    }
+  </script>
+  <script id="5" type="module" pinned="">
+    // Show question count
+    if (questions.length > 0) {
+      display(`Questions asked: ${questions.length}/20`);
+    }
+  </script>
+</notebook>

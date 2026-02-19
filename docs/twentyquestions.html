@@ -1,0 +1,16 @@
+<!doctype html>
+<notebook theme="cotton">
+  <title>Twenty Questions</title>
+  <script id="1" type="text/markdown">
+    # Twenty Questions
+  </script>
+  <script id="5" type="text/markdown">
+    *I'm thinking of something. As me up to 20 ‘yes/no’ questions about it or guess.*
+  </script>
+  <script id="6" type="module">
+    const answer = view(Inputs.button("Answer", {reduce: () => Math.random() > 0.5 ? "Yes" : "No"}));
+  </script>
+  <script id="7" type="module">
+    answer
+  </script>
+</notebook>

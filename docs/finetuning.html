@@ -1,0 +1,354 @@
+<!doctype html>
+<notebook theme="cotton">
+  <title>Fine Tuning</title>
+  <script id="1" type="text/markdown">
+    # Fine Tuning
+  </script>
+  <script id="2" type="module" pinned="">
+    // Import necessary libraries for fine-tuning and text processing
+    import {OpenAI} from "npm:openai";
+
+    // Note: Node.js fs and path modules are not available in browser environment
+    // File operations will need to be handled differently in Observable Notebooks
+    // You can use file inputs or data loaders instead
+  </script>
+  <script id="3" type="module" pinned="">
+    // Configuration for fine-tuning
+    const config = {
+      // OpenAI API configuration (you'll need to set your API key)
+      openaiApiKey: "", // Set your OpenAI API key here
+
+      // Fine-tuning parameters
+      model: "gpt-3.5-turbo", // Base model to fine-tune
+      trainingFile: null, // Will be set after processing data
+      validationFile: null,
+
+      // Training parameters
+      nEpochs: 3,
+      batchSize: 1,
+      learningRateMultiplier: 0.1,
+
+      // Text processing parameters
+      maxTokensPerExample: 2048,
+      docsFolder: "./docs" // Folder containing your text files
+    };
+
+    display("Configuration loaded");
+  </script>
+  <script id="4" type="module" pinned="">
+    // Initialize OpenAI client
+    const openai = config.openaiApiKey ? new OpenAI({
+      apiKey: config.openaiApiKey
+    }) : null;
+
+    if (!openai) {
+      display("⚠️ Please set your OpenAI API key in the config above");
+    } else {
+      display("✅ OpenAI client initialized");
+    }
+  </script>
+  <script id="5" type="module" pinned="">
+    // Function to handle file input and process text files
+    function createFileInput() {
+      const input = htl.html`<input type="file" multiple accept=".txt" style="margin: 10px 0;">`;
+
+      return input;
+    }
+
+    // Function to process uploaded files
+    async function processUploadedFiles(files) {
+      const documents = [];
+
+      for (const file of files) {
+        if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
+          try {
+            const content = await file.text();
+            documents.push({
+              filename: file.name,
+              content: content.trim(),
+              wordCount: content.split(/\s+/).length
+            });
+          } catch (error) {
+            console.error(`Error reading file ${file.name}:`, error);
+          }
+        }
+      }
+
+      return documents;
+    }
+
+    // Create file input for users to upload their text files
+    const fileInput = createFileInput();
+    display("Upload your .txt files using the input below:");
+    display(fileInput);
+
+    display("File processing functions defined. Upload files above to continue.");
+  </script>
+  <script id="7" type="module" pinned="">
+    // Function to create training examples in JSONL format for fine-tuning
+    function createTrainingExamples(documents, systemPrompt = "You are a helpful assistant.") {
+      const examples = [];
+
+      documents.forEach(doc => {
+        // Split content into chunks if it's too long
+        const chunks = splitIntoChunks(doc.content, config.maxTokensPerExample);
+
+        chunks.forEach((chunk, index) => {
+          // Create a training example
+          // You can customize this format based on your specific fine-tuning needs
+          const example = {
+            messages: [
+              {
+                role: "system",
+                content: systemPrompt
+              },
+              {
+                role: "user",
+                content: `Please analyze and respond based on this text: ${chunk}`
+              },
+              {
+                role: "assistant",
+                content: `Based on the provided text, I can help you with analysis, questions, or tasks related to this content. The text discusses: ${chunk.substring(0, 200)}...`
+              }
+            ]
+          };
+
+          examples.push(example);
+        });
+      });
+
+      return examples;
+    }
+
+    // Helper function to split text into manageable chunks
+    function splitIntoChunks(text, maxTokens) {
+      const words = text.split(/\s+/);
+      const chunks = [];
+      const wordsPerChunk = Math.floor(maxTokens * 0.75); // Rough token estimation
+
+      for (let i = 0; i < words.length; i += wordsPerChunk) {
+        chunks.push(words.slice(i, i + wordsPerChunk).join(' '));
+      }
+
+      return chunks;
+    }
+
+    display("Training example creation functions defined");
+  </script>
+  <script id="8" type="module" pinned="">
+    // Generate training examples from loaded texts
+    const trainingExamples = sampleTexts.length > 0 ?
+      createTrainingExamples(sampleTexts, "You are an AI assistant fine-tuned on specific domain knowledge.") :
+      [];
+
+    display(`Generated ${trainingExamples.length} training examples`);
+    if (trainingExamples.length > 0) {
+      display("Sample training example:");
+      display(trainingExamples[0]);
+    }
+  </script>
+  <script id="9" type="module" pinned="">
+    // Function to save training data as JSONL file
+    function saveAsJSONL(examples, filename = "training_data.jsonl") {
+      const jsonlContent = examples.map(example => JSON.stringify(example)).join('\n');
+
+      // Create a downloadable blob
+      const blob = new Blob([jsonlContent], { type: 'application/jsonl' });
+      const url = URL.createObjectURL(blob);
+
+      // Create download link
+      const downloadLink = htl.html`<a href="${url}" download="${filename}">Download ${filename}</a>`;
+
+      return { blob, url, downloadLink, content: jsonlContent };
+    }
+
+    // Generate downloadable training file
+    const trainingFile = trainingExamples.length > 0 ?
+      saveAsJSONL(trainingExamples, "fine_tuning_data.jsonl") :
+      null;
+
+    if (trainingFile) {
+      display("Training data ready for download:");
+      display(trainingFile.downloadLink);
+    }
+  </script>
+  <script id="10" type="module" pinned="">
+    // Fine-tuning management functions
+    const fineTuningManager = {
+      // Upload training file to OpenAI
+      async uploadTrainingFile(jsonlContent) {
+        if (!openai) throw new Error("OpenAI client not initialized");
+
+        const file = await openai.files.create({
+          file: new Blob([jsonlContent], { type: 'application/jsonl' }),
+          purpose: 'fine-tune'
+        });
+
+        return file;
+      },
+
+      // Create fine-tuning job
+      async createFineTuningJob(fileId, model = config.model) {
+        if (!openai) throw new Error("OpenAI client not initialized");
+
+        const job = await openai.fineTuning.jobs.create({
+          training_file: fileId,
+          model: model,
+          hyperparameters: {
+            n_epochs: config.nEpochs,
+            batch_size: config.batchSize,
+            learning_rate_multiplier: config.learningRateMultiplier
+          }
+        });
+
+        return job;
+      },
+
+      // Check fine-tuning job status
+      async checkJobStatus(jobId) {
+        if (!openai) throw new Error("OpenAI client not initialized");
+
+        const job = await openai.fineTuning.jobs.retrieve(jobId);
+        return job;
+      },
+
+      // List fine-tuning jobs
+      async listJobs() {
+        if (!openai) throw new Error("OpenAI client not initialized");
+
+        const jobs = await openai.fineTuning.jobs.list();
+        return jobs;
+      }
+    };
+
+    display("Fine-tuning management functions ready");
+  </script>
+  <script id="11" type="module" pinned="">
+    // Interactive controls for fine-tuning process
+    const controls = htl.html`
+      <div style="padding: 20px; border: 1px solid #ddd; border-radius: 8px; margin: 10px 0;">
+        <h3>Fine-Tuning Controls</h3>
+
+        <div style="margin: 10px 0;">
+          <label>System Prompt for Training:</label><br>
+          <textarea id="systemPrompt" rows="3" cols="80" placeholder="Enter system prompt for fine-tuning...">You are an AI assistant fine-tuned on specific domain knowledge.</textarea>
+        </div>
+
+        <div style="margin: 10px 0;">
+          <button id="regenerateExamples">Regenerate Training Examples</button>
+          <button id="downloadTrainingData">Download Training Data</button>
+        </div>
+
+        <div style="margin: 10px 0;">
+          <button id="uploadFile" ${!openai ? 'disabled' : ''}>Upload to OpenAI</button>
+          <button id="startFineTuning" ${!openai ? 'disabled' : ''}>Start Fine-Tuning</button>
+          <button id="checkStatus" ${!openai ? 'disabled' : ''}>Check Status</button>
+        </div>
+
+        <div id="status" style="margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 4px;">
+          Status: Ready to process text files from docs folder
+        </div>
+      </div>
+    `;
+
+    display(controls);
+  </script>
+  <script id="12" type="module" pinned="">
+    // Event handlers for interactive controls
+    let currentJobId = null;
+    let uploadedFileId = null;
+
+    // Regenerate examples with custom system prompt
+    controls.querySelector('#regenerateExamples').onclick = () => {
+      const systemPrompt = controls.querySelector('#systemPrompt').value;
+      const newExamples = createTrainingExamples(sampleTexts, systemPrompt);
+
+      controls.querySelector('#status').innerHTML = `Generated ${newExamples.length} training examples with custom prompt`;
+
+      // Update global training examples
+      window.currentTrainingExamples = newExamples;
+    };
+
+    // Download training data
+    controls.querySelector('#downloadTrainingData').onclick = () => {
+      const examples = window.currentTrainingExamples || trainingExamples;
+      const file = saveAsJSONL(examples);
+
+      // Trigger download
+      const a = document.createElement('a');
+      a.href = file.url;
+      a.download = 'fine_tuning_data.jsonl';
+      a.click();
+
+      controls.querySelector('#status').innerHTML = 'Training data downloaded';
+    };
+
+    // Upload file to OpenAI
+    controls.querySelector('#uploadFile').onclick = async () => {
+      try {
+        controls.querySelector('#status').innerHTML = 'Uploading file to OpenAI...';
+
+        const examples = window.currentTrainingExamples || trainingExamples;
+        const jsonlContent = examples.map(ex => JSON.stringify(ex)).join('\n');
+
+        const file = await fineTuningManager.uploadTrainingFile(jsonlContent);
+        uploadedFileId = file.id;
+
+        controls.querySelector('#status').innerHTML = `File uploaded successfully. File ID: ${file.id}`;
+      } catch (error) {
+        controls.querySelector('#status').innerHTML = `Upload failed: ${error.message}`;
+      }
+    };
+
+    // Start fine-tuning
+    controls.querySelector('#startFineTuning').onclick = async () => {
+      try {
+        if (!uploadedFileId) {
+          controls.querySelector('#status').innerHTML = 'Please upload a file first';
+          return;
+        }
+
+        controls.querySelector('#status').innerHTML = 'Starting fine-tuning job...';
+
+        const job = await fineTuningManager.createFineTuningJob(uploadedFileId);
+        currentJobId = job.id;
+
+        controls.querySelector('#status').innerHTML = `Fine-tuning job started. Job ID: ${job.id}`;
+      } catch (error) {
+        controls.querySelector('#status').innerHTML = `Fine-tuning failed: ${error.message}`;
+      }
+    };
+
+    // Check status
+    controls.querySelector('#checkStatus').onclick = async () => {
+      try {
+        if (!currentJobId) {
+          const jobs = await fineTuningManager.listJobs();
+          controls.querySelector('#status').innerHTML = `Recent jobs: ${JSON.stringify(jobs.data.slice(0, 3), null, 2)}`;
+          return;
+        }
+
+        const job = await fineTuningManager.checkJobStatus(currentJobId);
+        controls.querySelector('#status').innerHTML = `Job Status: ${job.status}. Fine-tuned model: ${job.fine_tuned_model || 'Not ready yet'}`;
+      } catch (error) {
+        controls.querySelector('#status').innerHTML = `Status check failed: ${error.message}`;
+      }
+    };
+
+    display("Event handlers attached");
+  </script>
+  <script id="13" type="text/markdown">
+    ## Instructions
+
+    1. **Add your OpenAI API key** in the configuration cell above
+    2. **Create a `docs` folder** in your notebook's directory and add `.txt` files with your sample content
+    3. **Refresh the notebook** to load your text files
+    4. **Use the controls** to:
+       - Customize the system prompt for your fine-tuning
+       - Generate and download training data
+       - Upload to OpenAI and start fine-tuning
+       - Monitor the fine-tuning progress
+
+    The notebook will automatically process your text files and create training examples suitable for fine-tuning. You can customize the system prompt and training parameters to match your specific use case.
+  </script>
+</notebook>
