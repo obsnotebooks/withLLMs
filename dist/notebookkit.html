@@ -465,32 +465,72 @@ pre > code:only-child {
 
 /* from here on you should create your own styles */
     </style>
-  <meta name="generator" content="Observable Notebook Kit v1.5.1"><title>Notebooks for With LLMs</title>  <script type="module" crossorigin src="./assets/index-BoQGnnIN.js"></script>
+  <meta name="generator" content="Observable Notebook Kit v1.5.1"><title>Setting upObservable Notebook Kit</title>  <script type="module" crossorigin src="./assets/notebookkit-B5ysaKSQ.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/index-BoQGnnIN.js">
 </head>
   <body>
-    <main><div id="cell-1" class="observablehq observablehq--cell"><div><h1>Notebooks for <em>With LLMs</em></h1>
-</div></div><div id="cell-3" class="observablehq observablehq--cell"><div><p>Table of Contents (under construction)
-<em>This will provide links to other notebooks on this site. At the moment, just click the link below.</em></p>
-<ul>
-<li>Set Up:
-<ul>
-<li><a href="desktopai.html">Observable Desktop &amp; AI</a></li>
-<li><a href="notebookkit.html">Observable Notebook Kit</a></li>
-<li><a href="githubpages.html">GitHub &amp; GitHub Pages</a></li>
-</ul>
-</li>
-</ul>
-<p>&nbsp;</p>
-<ul>
-<li>Miscellaneous example or demo notebooks:
-<ul>
-<li><a href="markovmodel.html">Markov Model Notebook</a></li>
-<li><a href="finetuning.html">Fine Tuning</a></li>
-</ul>
-</li>
-</ul>
+    <main><div id="cell-1" class="observablehq observablehq--cell"><div><h1><em>Setting up</em><br>Observable Notebook Kit</h1>
+<p><em>in order to develop notebooks into websites</em> <em><strong>locally</strong></em></p>
 <hr>
-</div></div></main>
+</div></div><div id="cell-21" class="observablehq observablehq--cell"><div><h2 id="create-your-first-project-folder-and-set-up-the-notebook-kit" tabindex="-1"><a href="#create-your-first-project-folder-and-set-up-the-notebook-kit">Create your First Project Folder and Set Up the Notebook Kit</a></h2>
+<p>The desktop app is a notebook editor that creates, edits and saves, basically, HTML files. (These files have .html as their extension). You will be editing these files inside folders that are organized to use the <a href="https://observablehq.com/notebook-kit/kit"><strong>Observable Notebook Kit</strong></a>. We set all this up in order to be able turn your notebooks into publishable web sites, locally, at first.</p>
+</div></div><div id="cell-7" class="observablehq observablehq--cell"><div><ol>
+<li>In whatever way is most comfortable for you (and best organized) create a folder called something appropriate like: <code>ObservableNotebooks</code>. <!-- (Note: You will move/upload this folder to your shared-with-the Google Drive folder early in the semester.) --></li>
+<li>Inside this folder make another folder called <code>docs</code>. This is where you will create and store your notebook files.</li>
+<li>Open <strong>Observable Desktop</strong> and then edit the <code>Untitled</code> default document that appears. Edit the title and create a few more <strong>MarkDown</strong> (<code>md</code>) cells with some (placeholder) text in them.</li>
+<li>Select <code>File —&gt; Save As...</code> to save what you’ve done, with a name based on the title you chose, inside the <strong><code>docs</code></strong> folder of your project folder.</li>
+<li>Now use your Terminal program and its Command Line Interface (CLI) to navigate to your <code>ObservableNotebooks</code> project folder. (If you haven’t done this before, we’ll do it Together First In Workshop and/or <strong>ask questions</strong>.)</li>
+<li>And, if you’ve never done so before, you will need to install <code>node.js</code> and a <em>Package Manager</em> called <code>npm</code> (Node Package Manager). Go to step 8 if you already have <code>npm</code> installed, otherwise:</li>
+<li>Download the installer for <code>node.js</code> that is best for your computer. If you have a Mac <a href="https://nodejs.org/en/download">download from here</a>. Verify at the terminal with (on separate lines):<br><code>node -v</code><br><code>npm -v</code><br> (which will show the installed versions of these packages).</li>
+<li>Next, at the Terminal prompt type:<br><code>npm add @observablehq/notebook-kit</code></li>
+<li>Hopefully you have a plain text editor that you like to use. Find and edit the file <code>package.json</code> (which has been created by the previous step) so that it looks like this (it’s the <code>scripts</code> part that needs adding):</li>
+</ol>
+<pre data-language="json"><code class="language-json">{
+  "dependencies": {
+    "@observablehq/notebook-kit": "^1.5.0"
+  },
+  "scripts": {
+    "preview": "notebooks preview --root docs --template docs/nochrome.tmpl",
+    "build": "notebooks build --root docs --template docs/nochrome.tmpl --out ../dist -- docs/*.html"
+  }
+}
+</code></pre>
+<ol start="10">
+<li>This file refers to another, a template file, called <code>nochrome.tmpl</code> so now you also need to create this file inside your <code>docs</code> folder. Make a new plain text file using you editor and save it in the <code>docs</code> folder. <strong>Make sure</strong> the file name has that <strong><code>.tmpl</code></strong> extension. Its contents should look like this:</li>
+</ol>
+<pre data-language="html"><code class="language-html"><span class="tok-meta">&lt;!doctype html&gt;</span>
+&lt;<span class="tok-keyword">html</span> <span class="tok-definition">lang</span>=<span class="tok-string">"en"</span>&gt;
+  &lt;<span class="tok-keyword">head</span>&gt;
+    &lt;<span class="tok-keyword">meta</span> <span class="tok-definition">charset</span>=<span class="tok-string">"utf-8"</span>&gt;
+    &lt;<span class="tok-keyword">meta</span> <span class="tok-definition">name</span>=<span class="tok-string">"viewport"</span> <span class="tok-definition">content</span>=<span class="tok-string">"width=device-width, initial-scale=1.0"</span>&gt;
+    &lt;<span class="tok-keyword">style</span> <span class="tok-definition">type</span>=<span class="tok-string">"text/css"</span>&gt;
+      @import url("observable:styles/index.css");
+      * {
+        margin-top:0 !important;
+      }
+      html {
+        background-color: white;
+        margin:0;
+        padding::2vw; /* change this to 0 to override default */
+        border:0;
+      }
+      body {
+        max-width: none;
+        margin:0;
+        padding:0;
+        border:0;
+      }
+    &lt;/<span class="tok-keyword">style</span>&gt;
+  &lt;/<span class="tok-keyword">head</span>&gt;
+  &lt;<span class="tok-keyword">body</span>&gt;
+    &lt;<span class="tok-keyword">main</span>&gt;&lt;/<span class="tok-keyword">main</span>&gt;
+  &lt;/<span class="tok-keyword">body</span>&gt;
+&lt;/<span class="tok-keyword">html</span>&gt;
+</code></pre>
+<ol start="11">
+<li>Finally (for now) in your terminal, type: <code>npm run preview</code>. Then type <code>h</code> and hit return. <strong>Read and explore what is displayed</strong>.</li>
+</ol>
+</div></div><div id="cell-22" class="observablehq observablehq--cell"></div><div id="cell-23" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-variable">notecell</span>.<span class="tok-definition">innerHTML</span></code></pre></main>
   
 
 <style type="text/css">:root {

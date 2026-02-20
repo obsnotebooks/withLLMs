@@ -1,0 +1,607 @@
+<!doctype html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap">
+    <style type="text/css">/* Copyright 2025 Observable, Inc. */
+
+:root {
+  --serif:
+    "Source Serif 4", "Iowan Old Style", "Apple Garamond", "Palatino Linotype", "Times New Roman",
+    "Droid Serif", Times, serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --sans-serif:
+    "Inter", -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue",
+    ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+  --monospace: "Spline Sans Mono", Menlo, Consolas, monospace;
+  --monospace-font: 14px/1.5 var(--monospace);
+  --max-width: calc(1024px - 4 * 16px); /* max-w-5xl p-4 */
+}
+
+html {
+  font: 17px/1.5 var(--serif);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--theme-background);
+  color: var(--theme-foreground);
+  margin: 16px 0;
+  padding: 16px 24px;
+}
+
+body {
+  margin: auto;
+  max-width: var(--max-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--theme-foreground-alt);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  text-wrap: balance;
+}
+
+h2 + p,
+h3 + p,
+h4 + p,
+h2 + table,
+h3 + table,
+h4 + table {
+  margin-top: 0;
+}
+
+.observablehq:first-of-type h1 + h2 {
+  color: var(--theme-foreground);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 1rem; /* see h2 ~ p */
+}
+
+a[href] {
+  color: var(--theme-foreground-focus);
+  text-decoration: none;
+}
+
+a[href]:hover,
+a[href]:focus {
+  text-decoration: underline;
+}
+
+pre,
+code,
+tt {
+  font-family: var(--monospace);
+  font-size: 82.35294117%; /* from 17px to 14px */
+}
+
+pre code,
+figcaption code {
+  font-size: inherit;
+}
+
+pre[data-language] {
+  position: relative;
+}
+
+pre[data-language]::before {
+  content: attr(data-language);
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 0;
+  display: block;
+  text-align: right;
+  margin-right: -4px;
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 21px;
+  color: var(--theme-foreground-muted);
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  font-size: 88.235294117%; /* from 17px to 15px */
+}
+
+h2[id] a[href],
+h3[id] a[href] {
+  color: inherit;
+}
+
+pre {
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+}
+
+p,
+table,
+figure,
+figcaption,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.katex-display {
+  max-width: 640px;
+}
+
+blockquote,
+ol,
+ul {
+  max-width: 600px;
+}
+
+blockquote {
+  margin: 1rem 1.5rem;
+}
+
+ul,
+ol {
+  padding-left: 28px;
+}
+
+hr {
+  height: 1px;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  border: none;
+  background: no-repeat center/100% 1px
+    linear-gradient(to right, var(--theme-foreground-faintest), var(--theme-foreground-faintest));
+}
+
+pre {
+  background-color: var(--theme-background-alt);
+  border-radius: 4px;
+  margin: 1rem -1rem;
+  min-height: 1.5em;
+  padding: 4px 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: none;
+  box-sizing: border-box;
+}
+
+pre > code:only-child {
+  display: block;
+  width: fit-content;
+}
+
+input:not([type]),
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="range"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"] {
+  width: 240px;
+}
+
+input,
+canvas,
+button {
+  vertical-align: middle;
+}
+
+button,
+input,
+textarea {
+  accent-color: var(--theme-foreground-focus);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 13px/1.2 var(--sans-serif);
+}
+
+table pre,
+table code,
+table tt {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+th > pre:only-child,
+td > pre:only-child {
+  margin: 0;
+  padding: 0;
+}
+
+th {
+  color: var(--theme-foreground);
+  text-align: left;
+  vertical-align: bottom;
+}
+
+td {
+  color: var(--theme-foreground-alt);
+  vertical-align: top;
+}
+
+th,
+td {
+  padding: 3px 6.5px 3px 0;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+
+tr:not(:last-child) {
+  border-bottom: solid 1px var(--theme-foreground-faintest);
+}
+
+thead tr {
+  border-bottom: solid 1px var(--theme-foreground-fainter);
+}
+
+figure,
+table {
+  margin: 1rem 0;
+}
+
+figure img {
+  max-width: 100%;
+}
+
+figure > h2,
+figure > h3 {
+  font-family: var(--sans-serif);
+}
+
+figure > h2 {
+  font-size: 20px;
+}
+
+figure > h3 {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+figcaption {
+  font: small var(--sans-serif);
+  color: var(--theme-foreground-muted);
+}
+
+.observablehq--collapsed,
+.observablehq--expanded.observablehq--inspect a {
+  cursor: pointer;
+}
+
+.observablehq--caret {
+  margin-right: 4px;
+  vertical-align: baseline;
+}
+
+.observablehq--field {
+  text-indent: -1rem;
+  margin-left: 1rem;
+}
+
+.observablehq--inspect {
+  font: var(--monospace-font);
+  overflow-x: auto;
+  white-space: pre;
+  display: block;
+  padding: 2px 0;
+}
+
+.observablehq--inspect.observablehq--import {
+  white-space: normal;
+}
+
+.observablehq--inspect::-webkit-scrollbar {
+  display: none;
+}
+
+.observablehq--error .observablehq--inspect {
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.observablehq--string-expand {
+  margin-left: 6px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 80%;
+  background: var(--theme-background-alt);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.observablehq--keyword {
+  color: var(--syntax-keyword);
+}
+
+.observablehq--index,
+.observablehq--key {
+  color: var(--syntax-definition);
+}
+
+.observablehq--symbol,
+.observablehq--regexp,
+.observablehq--string {
+  color: var(--syntax-string);
+}
+
+.observablehq--null {
+  color: var(--syntax-keyword);
+}
+
+.observablehq--undefined {
+  color: var(--syntax-variable);
+}
+
+.observablehq--prototype-key {
+  color: var(--syntax-comment);
+}
+
+.observablehq--bigint,
+.observablehq--boolean,
+.observablehq--date,
+.observablehq--forbidden,
+.observablehq--number {
+  color: var(--syntax-literal);
+}
+
+.observablehq--error {
+  color: var(--theme-error);
+}
+
+.observablehq--cell {
+  margin: 17px 0;
+  min-height: 1px; /* prevent margin collapse when empty */
+}
+
+.tok-link {
+  color: var(--syntax-link);
+}
+
+.tok-strong {
+  font-weight: 600;
+}
+
+.tok-emphasis {
+  font-style: italic;
+}
+
+.tok-keyword {
+  color: var(--syntax-keyword);
+}
+
+.tok-atom {
+  color: var(--syntax-atom);
+}
+
+.tok-literal {
+  color: var(--syntax-literal);
+}
+
+.tok-string {
+  color: var(--syntax-string);
+}
+
+.tok-comment {
+  color: var(--syntax-comment);
+}
+
+.tok-invalid {
+  color: var(--syntax-invalid);
+}
+
+.tok-variable {
+  color: var(--syntax-variable);
+}
+
+.tok-definition {
+  color: var(--syntax-definition);
+}
+
+.tok-meta {
+  color: var(--syntax-meta);
+}
+
+.plot-d6a7b5 {
+  --plot-background: var(--theme-background);
+}
+
+p .plot-d6a7b5 {
+  display: inline-block;
+}
+
+.observablehq--cell:empty {
+  min-height: 0;
+}
+
+.observablehq--cell:not(:empty) + pre {
+  margin-top: -11px;
+}
+
+/* force no margin even in the html tag */
+
+* {
+        margin-top:0 !important;
+      }
+
+/* change this for overall background color */
+
+html {
+        background-color: white;
+        margin:0;
+        padding:2vw; /* change this to 0 to override default */
+        border:0;
+      }
+
+/* and also this for body properties */
+
+body {
+        background-color: white;
+        max-width: none;
+        margin:0;
+        padding:0;
+        border:0;
+      }
+
+pre > code:only-child {
+        width: 80%;
+      }
+
+/* from here on you should create your own styles */
+    </style>
+  <meta name="generator" content="Observable Notebook Kit v1.5.1"><title>Markov Model</title>  <script type="module" crossorigin src="./assets/markovmodel-BQ0msWFj.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/index-BoQGnnIN.js">
+</head>
+  <body>
+    <main><div id="cell-1" class="observablehq observablehq--cell"><div><h1>Markov Model</h1>
+</div></div><div id="cell-2" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Sample text data for training the Markov model</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">sampleText</span> = <span class="tok-string">`the tongue gets clogged with mud that can happen too only one remedy then pull it in and suck it swallow the mud or spit it out it’s one or the other and question is it nourishing and vistas last a moment with that</span>
+<span class="tok-string">I fill my mouth with it that can happen too it’s another of my resources last a moment with that and question if swallowed would it nourish and opening up of vistas they are good moments</span>
+<span class="tok-string">rosy in the mud the tongue lolls out again what are the hands at all this time one must always try and see what the hands are up to well the left as we have seen still clutches the sack and the right`</span>;
+<span class="tok-variable">display</span>(<span class="tok-string">"Sample text loaded for Markov model training"</span>);</code></pre><div id="cell-3" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Function to build a Markov chain from text</span>
+<span class="tok-keyword">function</span> <span class="tok-definition">buildMarkovChain</span>(<span class="tok-definition">text</span>, <span class="tok-definition">order</span> = <span class="tok-literal">2</span>) {
+  <span class="tok-keyword">const</span> <span class="tok-definition">words</span> = <span class="tok-variable">text</span>.<span class="tok-definition">toLowerCase</span>().<span class="tok-definition">replace</span>(<span class="tok-string">/[^\w\s]/g</span>, <span class="tok-string">''</span>).<span class="tok-definition">split</span>(<span class="tok-string">/\s+/</span>);
+  <span class="tok-keyword">const</span> <span class="tok-definition">chain</span> = <span class="tok-keyword">new</span> <span class="tok-definition">Map</span>();
+
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-literal">0</span>; <span class="tok-variable">i</span> &lt;= <span class="tok-variable">words</span>.<span class="tok-definition">length</span> - <span class="tok-variable">order</span> - <span class="tok-literal">1</span>; <span class="tok-variable">i</span>++) {
+    <span class="tok-keyword">const</span> <span class="tok-definition">state</span> = <span class="tok-variable">words</span>.<span class="tok-definition">slice</span>(<span class="tok-variable">i</span>, <span class="tok-variable">i</span> + <span class="tok-variable">order</span>).<span class="tok-definition">join</span>(<span class="tok-string">' '</span>);
+    <span class="tok-keyword">const</span> <span class="tok-definition">nextWord</span> = <span class="tok-variable">words</span>[<span class="tok-variable">i</span> + <span class="tok-variable">order</span>];
+
+    <span class="tok-keyword">if</span> (!<span class="tok-variable">chain</span>.<span class="tok-definition">has</span>(<span class="tok-variable">state</span>)) {
+      <span class="tok-variable">chain</span>.<span class="tok-definition">set</span>(<span class="tok-variable">state</span>, []);
+    }
+    <span class="tok-variable">chain</span>.<span class="tok-definition">get</span>(<span class="tok-variable">state</span>).<span class="tok-definition">push</span>(<span class="tok-variable">nextWord</span>);
+  }
+
+  <span class="tok-keyword">return</span> <span class="tok-variable">chain</span>;
+}
+
+<span class="tok-comment">// Build the Markov chain</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">markovChain</span> = <span class="tok-variable">buildMarkovChain</span>(<span class="tok-variable">sampleText</span>, <span class="tok-literal">2</span>);
+
+<span class="tok-variable">display</span>(<span class="tok-string">`Markov chain built with </span>${<span class="tok-variable">markovChain</span>.<span class="tok-definition">size</span>}<span class="tok-string"> states`</span>);</code></pre><div id="cell-4" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Function to generate text using the Markov chain</span>
+<span class="tok-keyword">function</span> <span class="tok-definition">generateText</span>(<span class="tok-definition">chain</span>, <span class="tok-definition">length</span> = <span class="tok-literal">50</span>, <span class="tok-definition">order</span> = <span class="tok-literal">2</span>) {
+  <span class="tok-keyword">const</span> <span class="tok-definition">states</span> = <span class="tok-variable">Array</span>.<span class="tok-definition">from</span>(<span class="tok-variable">chain</span>.<span class="tok-definition">keys</span>());
+  <span class="tok-keyword">let</span> <span class="tok-definition">currentState</span> = <span class="tok-variable">states</span>[<span class="tok-variable">Math</span>.<span class="tok-definition">floor</span>(<span class="tok-variable">Math</span>.<span class="tok-definition">random</span>() * <span class="tok-variable">states</span>.<span class="tok-definition">length</span>)];
+  <span class="tok-keyword">let</span> <span class="tok-definition">result</span> = <span class="tok-variable">currentState</span>.<span class="tok-definition">split</span>(<span class="tok-string">' '</span>);
+
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-literal">0</span>; <span class="tok-variable">i</span> &lt; <span class="tok-variable">length</span> - <span class="tok-variable">order</span>; <span class="tok-variable">i</span>++) {
+    <span class="tok-keyword">const</span> <span class="tok-definition">possibleWords</span> = <span class="tok-variable">chain</span>.<span class="tok-definition">get</span>(<span class="tok-variable">currentState</span>);
+    <span class="tok-keyword">if</span> (!<span class="tok-variable">possibleWords</span> || <span class="tok-variable">possibleWords</span>.<span class="tok-definition">length</span> === <span class="tok-literal">0</span>) {
+      <span class="tok-comment">// If we hit a dead end, pick a random state</span>
+      <span class="tok-variable">currentState</span> = <span class="tok-variable">states</span>[<span class="tok-variable">Math</span>.<span class="tok-definition">floor</span>(<span class="tok-variable">Math</span>.<span class="tok-definition">random</span>() * <span class="tok-variable">states</span>.<span class="tok-definition">length</span>)];
+      <span class="tok-variable">result</span>.<span class="tok-definition">push</span>(...<span class="tok-variable">currentState</span>.<span class="tok-definition">split</span>(<span class="tok-string">' '</span>));
+      <span class="tok-keyword">continue</span>;
+    }
+
+    <span class="tok-keyword">const</span> <span class="tok-definition">nextWord</span> = <span class="tok-variable">possibleWords</span>[<span class="tok-variable">Math</span>.<span class="tok-definition">floor</span>(<span class="tok-variable">Math</span>.<span class="tok-definition">random</span>() * <span class="tok-variable">possibleWords</span>.<span class="tok-definition">length</span>)];
+    <span class="tok-variable">result</span>.<span class="tok-definition">push</span>(<span class="tok-variable">nextWord</span>);
+
+    <span class="tok-comment">// Update current state by shifting the window</span>
+    <span class="tok-keyword">const</span> <span class="tok-definition">stateWords</span> = <span class="tok-variable">currentState</span>.<span class="tok-definition">split</span>(<span class="tok-string">' '</span>);
+    <span class="tok-variable">stateWords</span>.<span class="tok-definition">shift</span>();
+    <span class="tok-variable">stateWords</span>.<span class="tok-definition">push</span>(<span class="tok-variable">nextWord</span>);
+    <span class="tok-variable">currentState</span> = <span class="tok-variable">stateWords</span>.<span class="tok-definition">join</span>(<span class="tok-string">' '</span>);
+  }
+
+  <span class="tok-keyword">return</span> <span class="tok-variable">result</span>.<span class="tok-definition">join</span>(<span class="tok-string">' '</span>);
+}
+
+<span class="tok-comment">// Generate sample text</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">generatedText</span> = <span class="tok-variable">generateText</span>(<span class="tok-variable">markovChain</span>, <span class="tok-literal">30</span>);
+<span class="tok-variable">display</span>(<span class="tok-string">`Generated text: "</span>${<span class="tok-variable">generatedText</span>}<span class="tok-string">"`</span>);</code></pre><div id="cell-5" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Interactive text generator</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">lengthInput</span> = <span class="tok-variable">view</span>(<span class="tok-variable">Inputs</span>.<span class="tok-definition">range</span>([<span class="tok-literal">10</span>, <span class="tok-literal">100</span>], {<span class="tok-definition">label</span>: <span class="tok-string">"Text length"</span>, <span class="tok-definition">value</span>: <span class="tok-literal">30</span>, <span class="tok-definition">step</span>: <span class="tok-literal">1</span>}));
+<span class="tok-keyword">const</span> <span class="tok-definition">orderInput</span> = <span class="tok-variable">view</span>(<span class="tok-variable">Inputs</span>.<span class="tok-definition">range</span>([<span class="tok-literal">1</span>, <span class="tok-literal">4</span>], {<span class="tok-definition">label</span>: <span class="tok-string">"Markov order"</span>, <span class="tok-definition">value</span>: <span class="tok-literal">2</span>, <span class="tok-definition">step</span>: <span class="tok-literal">1</span>}));
+<span class="tok-keyword">const</span> <span class="tok-definition">generateButton</span> = <span class="tok-variable">view</span>(<span class="tok-variable">Inputs</span>.<span class="tok-definition">button</span>(<span class="tok-string">"Generate New Text"</span>));</code></pre><div id="cell-6" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Reactive text generation based on inputs</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">currentChain</span> = <span class="tok-variable">buildMarkovChain</span>(<span class="tok-variable">sampleText</span>, <span class="tok-variable">orderInput</span>);
+<span class="tok-keyword">const</span> <span class="tok-definition">newText</span> = <span class="tok-variable">generateText</span>(<span class="tok-variable">currentChain</span>, <span class="tok-variable">lengthInput</span>, <span class="tok-variable">orderInput</span>);
+
+<span class="tok-comment">// Trigger regeneration when button is clicked</span>
+<span class="tok-variable">generateButton</span>;
+
+<span class="tok-variable">display</span>(<span class="tok-variable">htl</span>.<span class="tok-definition">html</span><span class="tok-string">`</span>
+<span class="tok-string">  &lt;div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 10px 0;"&gt;</span>
+<span class="tok-string">    &lt;h3&gt;Generated Text (Order: </span>${<span class="tok-variable">orderInput</span>}<span class="tok-string">, Length: </span>${<span class="tok-variable">lengthInput</span>}<span class="tok-string"> words)&lt;/h3&gt;</span>
+<span class="tok-string">    &lt;p style="font-style: italic; line-height: 1.6;"&gt;"</span>${<span class="tok-variable">newText</span>}<span class="tok-string">"&lt;/p&gt;</span>
+<span class="tok-string">  &lt;/div&gt;</span>
+<span class="tok-string">`</span>);</code></pre><div id="cell-7" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Visualize the Markov chain structure</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">chainData</span> = <span class="tok-variable">Array</span>.<span class="tok-definition">from</span>(<span class="tok-variable">markovChain</span>.<span class="tok-definition">entries</span>()).<span class="tok-definition">map</span>(([<span class="tok-definition">state</span>, <span class="tok-definition">nextWords</span>]) =&gt; ({
+  <span class="tok-definition">state</span>,
+  <span class="tok-definition">transitions</span>: <span class="tok-variable">nextWords</span>.<span class="tok-definition">length</span>,
+  <span class="tok-definition">uniqueTransitions</span>: <span class="tok-keyword">new</span> <span class="tok-definition">Set</span>(<span class="tok-variable">nextWords</span>).<span class="tok-definition">size</span>,
+  <span class="tok-definition">nextWords</span>: <span class="tok-variable">nextWords</span>.<span class="tok-definition">join</span>(<span class="tok-string">', '</span>)
+}));
+
+<span class="tok-variable">display</span>(<span class="tok-variable">Inputs</span>.<span class="tok-definition">table</span>(<span class="tok-variable">chainData</span>.<span class="tok-definition">slice</span>(<span class="tok-literal">0</span>, <span class="tok-literal">10</span>), {
+  <span class="tok-definition">columns</span>: [<span class="tok-string">"state"</span>, <span class="tok-string">"transitions"</span>, <span class="tok-string">"uniqueTransitions"</span>],
+  <span class="tok-definition">header</span>: {
+    <span class="tok-definition">state</span>: <span class="tok-string">"State (2-gram)"</span>,
+    <span class="tok-definition">transitions</span>: <span class="tok-string">"Total Transitions"</span>,
+    <span class="tok-definition">uniqueTransitions</span>: <span class="tok-string">"Unique Next Words"</span>
+  }
+}));</code></pre><div id="cell-8" class="observablehq observablehq--cell"><div><h2 id="how-the-markov-model-works" tabindex="-1"><a href="#how-the-markov-model-works">How the Markov Model Works</a></h2>
+<p>This implementation demonstrates a <strong>Markov chain</strong> for text generation:</p>
+<ol>
+<li><strong>Training</strong>: The model analyzes the sample text and builds a chain of word sequences (n-grams) and their possible next words</li>
+<li><strong>Order</strong>: The “order” parameter determines how many previous words influence the next word choice</li>
+<li><strong>Generation</strong>: Starting from a random state, the model probabilistically selects the next word based on the training data</li>
+</ol>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li>Adjustable Markov order (1-4 words of context)</li>
+<li>Variable output length</li>
+<li>Interactive regeneration</li>
+<li>Visualization of the chain structure</li>
+</ul>
+<p>Try adjusting the parameters above to see how they affect the generated text quality and coherence!</p>
+</div></div></main>
+  
+
+<style type="text/css">:root {
+  --syntax-link: var(--theme-foreground-focus);
+  --syntax-keyword: #e36209;
+  --syntax-atom: #032f62;
+  --syntax-literal: #6f42c1;
+  --syntax-string: #22863a;
+  --syntax-comment: var(--theme-foreground-muted);
+  --syntax-invalid: var(--theme-error);
+  --syntax-definition: #005cc5;
+  --syntax-variable: var(--theme-foreground-alt);
+  --syntax-meta: #d73a49;
+}
+
+:root {
+  --theme-background-b: color-mix(in srgb, var(--theme-foreground) 4%, var(--theme-background-a));
+  --theme-background: var(--theme-background-a);
+  --theme-background-alt: var(--theme-background-b);
+  --theme-foreground-alt: color-mix(in srgb, var(--theme-foreground) 90%, var(--theme-background-a));
+  --theme-foreground-muted: color-mix(in srgb, var(--theme-foreground) 60%, var(--theme-background-a));
+  --theme-foreground-faint: color-mix(in srgb, var(--theme-foreground) 50%, var(--theme-background-a));
+  --theme-foreground-fainter: color-mix(in srgb, var(--theme-foreground) 30%, var(--theme-background-a));
+  --theme-foreground-faintest: color-mix(in srgb, var(--theme-foreground) 14%, var(--theme-background-a));
+  --theme-error: #e7040f;
+  color-scheme: light;
+}
+
+:root {
+  --theme-foreground: #473d3a;
+  --theme-foreground-focus: #5028c1;
+  --theme-background-a: #efeee9;
+}
+</style></body></html>

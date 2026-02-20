@@ -1,0 +1,825 @@
+<!doctype html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap">
+    <style type="text/css">/* Copyright 2025 Observable, Inc. */
+
+:root {
+  --serif:
+    "Source Serif 4", "Iowan Old Style", "Apple Garamond", "Palatino Linotype", "Times New Roman",
+    "Droid Serif", Times, serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --sans-serif:
+    "Inter", -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue",
+    ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+  --monospace: "Spline Sans Mono", Menlo, Consolas, monospace;
+  --monospace-font: 14px/1.5 var(--monospace);
+  --max-width: calc(1024px - 4 * 16px); /* max-w-5xl p-4 */
+}
+
+html {
+  font: 17px/1.5 var(--serif);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--theme-background);
+  color: var(--theme-foreground);
+  margin: 16px 0;
+  padding: 16px 24px;
+}
+
+body {
+  margin: auto;
+  max-width: var(--max-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--theme-foreground-alt);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  text-wrap: balance;
+}
+
+h2 + p,
+h3 + p,
+h4 + p,
+h2 + table,
+h3 + table,
+h4 + table {
+  margin-top: 0;
+}
+
+.observablehq:first-of-type h1 + h2 {
+  color: var(--theme-foreground);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 1rem; /* see h2 ~ p */
+}
+
+a[href] {
+  color: var(--theme-foreground-focus);
+  text-decoration: none;
+}
+
+a[href]:hover,
+a[href]:focus {
+  text-decoration: underline;
+}
+
+pre,
+code,
+tt {
+  font-family: var(--monospace);
+  font-size: 82.35294117%; /* from 17px to 14px */
+}
+
+pre code,
+figcaption code {
+  font-size: inherit;
+}
+
+pre[data-language] {
+  position: relative;
+}
+
+pre[data-language]::before {
+  content: attr(data-language);
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 0;
+  display: block;
+  text-align: right;
+  margin-right: -4px;
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 21px;
+  color: var(--theme-foreground-muted);
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  font-size: 88.235294117%; /* from 17px to 15px */
+}
+
+h2[id] a[href],
+h3[id] a[href] {
+  color: inherit;
+}
+
+pre {
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+}
+
+p,
+table,
+figure,
+figcaption,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.katex-display {
+  max-width: 640px;
+}
+
+blockquote,
+ol,
+ul {
+  max-width: 600px;
+}
+
+blockquote {
+  margin: 1rem 1.5rem;
+}
+
+ul,
+ol {
+  padding-left: 28px;
+}
+
+hr {
+  height: 1px;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  border: none;
+  background: no-repeat center/100% 1px
+    linear-gradient(to right, var(--theme-foreground-faintest), var(--theme-foreground-faintest));
+}
+
+pre {
+  background-color: var(--theme-background-alt);
+  border-radius: 4px;
+  margin: 1rem -1rem;
+  min-height: 1.5em;
+  padding: 4px 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: none;
+  box-sizing: border-box;
+}
+
+pre > code:only-child {
+  display: block;
+  width: fit-content;
+}
+
+input:not([type]),
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="range"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"] {
+  width: 240px;
+}
+
+input,
+canvas,
+button {
+  vertical-align: middle;
+}
+
+button,
+input,
+textarea {
+  accent-color: var(--theme-foreground-focus);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 13px/1.2 var(--sans-serif);
+}
+
+table pre,
+table code,
+table tt {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+th > pre:only-child,
+td > pre:only-child {
+  margin: 0;
+  padding: 0;
+}
+
+th {
+  color: var(--theme-foreground);
+  text-align: left;
+  vertical-align: bottom;
+}
+
+td {
+  color: var(--theme-foreground-alt);
+  vertical-align: top;
+}
+
+th,
+td {
+  padding: 3px 6.5px 3px 0;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+
+tr:not(:last-child) {
+  border-bottom: solid 1px var(--theme-foreground-faintest);
+}
+
+thead tr {
+  border-bottom: solid 1px var(--theme-foreground-fainter);
+}
+
+figure,
+table {
+  margin: 1rem 0;
+}
+
+figure img {
+  max-width: 100%;
+}
+
+figure > h2,
+figure > h3 {
+  font-family: var(--sans-serif);
+}
+
+figure > h2 {
+  font-size: 20px;
+}
+
+figure > h3 {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+figcaption {
+  font: small var(--sans-serif);
+  color: var(--theme-foreground-muted);
+}
+
+.observablehq--collapsed,
+.observablehq--expanded.observablehq--inspect a {
+  cursor: pointer;
+}
+
+.observablehq--caret {
+  margin-right: 4px;
+  vertical-align: baseline;
+}
+
+.observablehq--field {
+  text-indent: -1rem;
+  margin-left: 1rem;
+}
+
+.observablehq--inspect {
+  font: var(--monospace-font);
+  overflow-x: auto;
+  white-space: pre;
+  display: block;
+  padding: 2px 0;
+}
+
+.observablehq--inspect.observablehq--import {
+  white-space: normal;
+}
+
+.observablehq--inspect::-webkit-scrollbar {
+  display: none;
+}
+
+.observablehq--error .observablehq--inspect {
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.observablehq--string-expand {
+  margin-left: 6px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 80%;
+  background: var(--theme-background-alt);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.observablehq--keyword {
+  color: var(--syntax-keyword);
+}
+
+.observablehq--index,
+.observablehq--key {
+  color: var(--syntax-definition);
+}
+
+.observablehq--symbol,
+.observablehq--regexp,
+.observablehq--string {
+  color: var(--syntax-string);
+}
+
+.observablehq--null {
+  color: var(--syntax-keyword);
+}
+
+.observablehq--undefined {
+  color: var(--syntax-variable);
+}
+
+.observablehq--prototype-key {
+  color: var(--syntax-comment);
+}
+
+.observablehq--bigint,
+.observablehq--boolean,
+.observablehq--date,
+.observablehq--forbidden,
+.observablehq--number {
+  color: var(--syntax-literal);
+}
+
+.observablehq--error {
+  color: var(--theme-error);
+}
+
+.observablehq--cell {
+  margin: 17px 0;
+  min-height: 1px; /* prevent margin collapse when empty */
+}
+
+.tok-link {
+  color: var(--syntax-link);
+}
+
+.tok-strong {
+  font-weight: 600;
+}
+
+.tok-emphasis {
+  font-style: italic;
+}
+
+.tok-keyword {
+  color: var(--syntax-keyword);
+}
+
+.tok-atom {
+  color: var(--syntax-atom);
+}
+
+.tok-literal {
+  color: var(--syntax-literal);
+}
+
+.tok-string {
+  color: var(--syntax-string);
+}
+
+.tok-comment {
+  color: var(--syntax-comment);
+}
+
+.tok-invalid {
+  color: var(--syntax-invalid);
+}
+
+.tok-variable {
+  color: var(--syntax-variable);
+}
+
+.tok-definition {
+  color: var(--syntax-definition);
+}
+
+.tok-meta {
+  color: var(--syntax-meta);
+}
+
+.plot-d6a7b5 {
+  --plot-background: var(--theme-background);
+}
+
+p .plot-d6a7b5 {
+  display: inline-block;
+}
+
+.observablehq--cell:empty {
+  min-height: 0;
+}
+
+.observablehq--cell:not(:empty) + pre {
+  margin-top: -11px;
+}
+
+/* force no margin even in the html tag */
+
+* {
+        margin-top:0 !important;
+      }
+
+/* change this for overall background color */
+
+html {
+        background-color: white;
+        margin:0;
+        padding:2vw; /* change this to 0 to override default */
+        border:0;
+      }
+
+/* and also this for body properties */
+
+body {
+        background-color: white;
+        max-width: none;
+        margin:0;
+        padding:0;
+        border:0;
+      }
+
+pre > code:only-child {
+        width: 80%;
+      }
+
+/* from here on you should create your own styles */
+    </style>
+  <meta name="generator" content="Observable Notebook Kit v1.5.1"><title>Fine Tuning</title>  <script type="module" crossorigin src="./assets/finetuning-BQ2U0t_o.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/index-BoQGnnIN.js">
+</head>
+  <body>
+    <main><div id="cell-1" class="observablehq observablehq--cell"><div><h1>Fine Tuning</h1>
+</div></div><div id="cell-2" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Import necessary libraries for fine-tuning and text processing</span>
+<span class="tok-keyword">import</span> {<span class="tok-definition">OpenAI</span>} <span class="tok-keyword">from</span> <span class="tok-string">"npm:openai"</span>;
+
+<span class="tok-comment">// Note: Node.js fs and path modules are not available in browser environment</span>
+<span class="tok-comment">// File operations will need to be handled differently in Observable Notebooks</span>
+<span class="tok-comment">// You can use file inputs or data loaders instead</span></code></pre><div id="cell-3" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Configuration for fine-tuning</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">config</span> = {
+  <span class="tok-comment">// OpenAI API configuration (you'll need to set your API key)</span>
+  <span class="tok-definition">openaiApiKey</span>: <span class="tok-string">""</span>, <span class="tok-comment">// Set your OpenAI API key here</span>
+
+  <span class="tok-comment">// Fine-tuning parameters</span>
+  <span class="tok-definition">model</span>: <span class="tok-string">"gpt-3.5-turbo"</span>, <span class="tok-comment">// Base model to fine-tune</span>
+  <span class="tok-definition">trainingFile</span>: <span class="tok-keyword">null</span>, <span class="tok-comment">// Will be set after processing data</span>
+  <span class="tok-definition">validationFile</span>: <span class="tok-keyword">null</span>,
+
+  <span class="tok-comment">// Training parameters</span>
+  <span class="tok-definition">nEpochs</span>: <span class="tok-literal">3</span>,
+  <span class="tok-definition">batchSize</span>: <span class="tok-literal">1</span>,
+  <span class="tok-definition">learningRateMultiplier</span>: <span class="tok-literal">0.1</span>,
+
+  <span class="tok-comment">// Text processing parameters</span>
+  <span class="tok-definition">maxTokensPerExample</span>: <span class="tok-literal">2048</span>,
+  <span class="tok-definition">docsFolder</span>: <span class="tok-string">"./docs"</span> <span class="tok-comment">// Folder containing your text files</span>
+};
+
+<span class="tok-variable">display</span>(<span class="tok-string">"Configuration loaded"</span>);</code></pre><div id="cell-4" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Initialize OpenAI client</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">openai</span> = <span class="tok-variable">config</span>.<span class="tok-definition">openaiApiKey</span> ? <span class="tok-keyword">new</span> <span class="tok-definition">OpenAI</span>({
+  <span class="tok-definition">apiKey</span>: <span class="tok-variable">config</span>.<span class="tok-definition">openaiApiKey</span>
+}) : <span class="tok-keyword">null</span>;
+
+<span class="tok-keyword">if</span> (!<span class="tok-variable">openai</span>) {
+  <span class="tok-variable">display</span>(<span class="tok-string">"⚠️ Please set your OpenAI API key in the config above"</span>);
+} <span class="tok-keyword">else</span> {
+  <span class="tok-variable">display</span>(<span class="tok-string">"✅ OpenAI client initialized"</span>);
+}</code></pre><div id="cell-5" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Function to handle file input and process text files</span>
+<span class="tok-keyword">function</span> <span class="tok-definition">createFileInput</span>() {
+  <span class="tok-keyword">const</span> <span class="tok-definition">input</span> = <span class="tok-variable">htl</span>.<span class="tok-definition">html</span><span class="tok-string">`&lt;input type="file" multiple accept=".txt" style="margin: 10px 0;"&gt;`</span>;
+
+  <span class="tok-keyword">return</span> <span class="tok-variable">input</span>;
+}
+
+<span class="tok-comment">// Function to process uploaded files</span>
+<span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">processUploadedFiles</span>(<span class="tok-definition">files</span>) {
+  <span class="tok-keyword">const</span> <span class="tok-definition">documents</span> = [];
+
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">const</span> <span class="tok-definition">file</span> <span class="tok-keyword">of</span> <span class="tok-variable">files</span>) {
+    <span class="tok-keyword">if</span> (<span class="tok-variable">file</span>.<span class="tok-definition">type</span> === <span class="tok-string">'text/plain'</span> || <span class="tok-variable">file</span>.<span class="tok-definition">name</span>.<span class="tok-definition">endsWith</span>(<span class="tok-string">'.txt'</span>)) {
+      <span class="tok-keyword">try</span> {
+        <span class="tok-keyword">const</span> <span class="tok-definition">content</span> = <span class="tok-keyword">await</span> <span class="tok-variable">file</span>.<span class="tok-definition">text</span>();
+        <span class="tok-variable">documents</span>.<span class="tok-definition">push</span>({
+          <span class="tok-definition">filename</span>: <span class="tok-variable">file</span>.<span class="tok-definition">name</span>,
+          <span class="tok-definition">content</span>: <span class="tok-variable">content</span>.<span class="tok-definition">trim</span>(),
+          <span class="tok-definition">wordCount</span>: <span class="tok-variable">content</span>.<span class="tok-definition">split</span>(<span class="tok-string">/\s+/</span>).<span class="tok-definition">length</span>
+        });
+      } <span class="tok-keyword">catch</span> (<span class="tok-definition">error</span>) {
+        <span class="tok-variable">console</span>.<span class="tok-definition">error</span>(<span class="tok-string">`Error reading file </span>${<span class="tok-variable">file</span>.<span class="tok-definition">name</span>}<span class="tok-string">:`</span>, <span class="tok-variable">error</span>);
+      }
+    }
+  }
+
+  <span class="tok-keyword">return</span> <span class="tok-variable">documents</span>;
+}
+
+<span class="tok-comment">// Create file input for users to upload their text files</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">fileInput</span> = <span class="tok-variable">createFileInput</span>();
+<span class="tok-variable">display</span>(<span class="tok-string">"Upload your .txt files using the input below:"</span>);
+<span class="tok-variable">display</span>(<span class="tok-variable">fileInput</span>);
+
+<span class="tok-variable">display</span>(<span class="tok-string">"File processing functions defined. Upload files above to continue."</span>);</code></pre><div id="cell-7" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Function to create training examples in JSONL format for fine-tuning</span>
+<span class="tok-keyword">function</span> <span class="tok-definition">createTrainingExamples</span>(<span class="tok-definition">documents</span>, <span class="tok-definition">systemPrompt</span> = <span class="tok-string">"You are a helpful assistant."</span>) {
+  <span class="tok-keyword">const</span> <span class="tok-definition">examples</span> = [];
+
+  <span class="tok-variable">documents</span>.<span class="tok-definition">forEach</span>(<span class="tok-definition">doc</span> =&gt; {
+    <span class="tok-comment">// Split content into chunks if it's too long</span>
+    <span class="tok-keyword">const</span> <span class="tok-definition">chunks</span> = <span class="tok-variable">splitIntoChunks</span>(<span class="tok-variable">doc</span>.<span class="tok-definition">content</span>, <span class="tok-variable">config</span>.<span class="tok-definition">maxTokensPerExample</span>);
+
+    <span class="tok-variable">chunks</span>.<span class="tok-definition">forEach</span>((<span class="tok-definition">chunk</span>, <span class="tok-definition">index</span>) =&gt; {
+      <span class="tok-comment">// Create a training example</span>
+      <span class="tok-comment">// You can customize this format based on your specific fine-tuning needs</span>
+      <span class="tok-keyword">const</span> <span class="tok-definition">example</span> = {
+        <span class="tok-definition">messages</span>: [
+          {
+            <span class="tok-definition">role</span>: <span class="tok-string">"system"</span>,
+            <span class="tok-definition">content</span>: <span class="tok-variable">systemPrompt</span>
+          },
+          {
+            <span class="tok-definition">role</span>: <span class="tok-string">"user"</span>,
+            <span class="tok-definition">content</span>: <span class="tok-string">`Please analyze and respond based on this text: </span>${<span class="tok-variable">chunk</span>}<span class="tok-string">`</span>
+          },
+          {
+            <span class="tok-definition">role</span>: <span class="tok-string">"assistant"</span>,
+            <span class="tok-definition">content</span>: <span class="tok-string">`Based on the provided text, I can help you with analysis, questions, or tasks related to this content. The text discusses: </span>${<span class="tok-variable">chunk</span>.<span class="tok-definition">substring</span>(<span class="tok-literal">0</span>, <span class="tok-literal">200</span>)}<span class="tok-string">...`</span>
+          }
+        ]
+      };
+
+      <span class="tok-variable">examples</span>.<span class="tok-definition">push</span>(<span class="tok-variable">example</span>);
+    });
+  });
+
+  <span class="tok-keyword">return</span> <span class="tok-variable">examples</span>;
+}
+
+<span class="tok-comment">// Helper function to split text into manageable chunks</span>
+<span class="tok-keyword">function</span> <span class="tok-definition">splitIntoChunks</span>(<span class="tok-definition">text</span>, <span class="tok-definition">maxTokens</span>) {
+  <span class="tok-keyword">const</span> <span class="tok-definition">words</span> = <span class="tok-variable">text</span>.<span class="tok-definition">split</span>(<span class="tok-string">/\s+/</span>);
+  <span class="tok-keyword">const</span> <span class="tok-definition">chunks</span> = [];
+  <span class="tok-keyword">const</span> <span class="tok-definition">wordsPerChunk</span> = <span class="tok-variable">Math</span>.<span class="tok-definition">floor</span>(<span class="tok-variable">maxTokens</span> * <span class="tok-literal">0.75</span>); <span class="tok-comment">// Rough token estimation</span>
+
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-literal">0</span>; <span class="tok-variable">i</span> &lt; <span class="tok-variable">words</span>.<span class="tok-definition">length</span>; <span class="tok-variable">i</span> += <span class="tok-variable">wordsPerChunk</span>) {
+    <span class="tok-variable">chunks</span>.<span class="tok-definition">push</span>(<span class="tok-variable">words</span>.<span class="tok-definition">slice</span>(<span class="tok-variable">i</span>, <span class="tok-variable">i</span> + <span class="tok-variable">wordsPerChunk</span>).<span class="tok-definition">join</span>(<span class="tok-string">' '</span>));
+  }
+
+  <span class="tok-keyword">return</span> <span class="tok-variable">chunks</span>;
+}
+
+<span class="tok-variable">display</span>(<span class="tok-string">"Training example creation functions defined"</span>);</code></pre><div id="cell-8" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Generate training examples from loaded texts</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">trainingExamples</span> = <span class="tok-variable">sampleTexts</span>.<span class="tok-definition">length</span> &gt; <span class="tok-literal">0</span> ?
+  <span class="tok-variable">createTrainingExamples</span>(<span class="tok-variable">sampleTexts</span>, <span class="tok-string">"You are an AI assistant fine-tuned on specific domain knowledge."</span>) :
+  [];
+
+<span class="tok-variable">display</span>(<span class="tok-string">`Generated </span>${<span class="tok-variable">trainingExamples</span>.<span class="tok-definition">length</span>}<span class="tok-string"> training examples`</span>);
+<span class="tok-keyword">if</span> (<span class="tok-variable">trainingExamples</span>.<span class="tok-definition">length</span> &gt; <span class="tok-literal">0</span>) {
+  <span class="tok-variable">display</span>(<span class="tok-string">"Sample training example:"</span>);
+  <span class="tok-variable">display</span>(<span class="tok-variable">trainingExamples</span>[<span class="tok-literal">0</span>]);
+}</code></pre><div id="cell-9" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Function to save training data as JSONL file</span>
+<span class="tok-keyword">function</span> <span class="tok-definition">saveAsJSONL</span>(<span class="tok-definition">examples</span>, <span class="tok-definition">filename</span> = <span class="tok-string">"training_data.jsonl"</span>) {
+  <span class="tok-keyword">const</span> <span class="tok-definition">jsonlContent</span> = <span class="tok-variable">examples</span>.<span class="tok-definition">map</span>(<span class="tok-definition">example</span> =&gt; <span class="tok-variable">JSON</span>.<span class="tok-definition">stringify</span>(<span class="tok-variable">example</span>)).<span class="tok-definition">join</span>(<span class="tok-string">'</span><span class="tok-literal">\n</span><span class="tok-string">'</span>);
+
+  <span class="tok-comment">// Create a downloadable blob</span>
+  <span class="tok-keyword">const</span> <span class="tok-definition">blob</span> = <span class="tok-keyword">new</span> <span class="tok-definition">Blob</span>([<span class="tok-variable">jsonlContent</span>], { <span class="tok-definition">type</span>: <span class="tok-string">'application/jsonl'</span> });
+  <span class="tok-keyword">const</span> <span class="tok-definition">url</span> = <span class="tok-variable">URL</span>.<span class="tok-definition">createObjectURL</span>(<span class="tok-variable">blob</span>);
+
+  <span class="tok-comment">// Create download link</span>
+  <span class="tok-keyword">const</span> <span class="tok-definition">downloadLink</span> = <span class="tok-variable">htl</span>.<span class="tok-definition">html</span><span class="tok-string">`&lt;a href="</span>${<span class="tok-variable">url</span>}<span class="tok-string">" download="</span>${<span class="tok-variable">filename</span>}<span class="tok-string">"&gt;Download </span>${<span class="tok-variable">filename</span>}<span class="tok-string">&lt;/a&gt;`</span>;
+
+  <span class="tok-keyword">return</span> { <span class="tok-definition">blob</span>, <span class="tok-definition">url</span>, <span class="tok-definition">downloadLink</span>, <span class="tok-definition">content</span>: <span class="tok-variable">jsonlContent</span> };
+}
+
+<span class="tok-comment">// Generate downloadable training file</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">trainingFile</span> = <span class="tok-variable">trainingExamples</span>.<span class="tok-definition">length</span> &gt; <span class="tok-literal">0</span> ?
+  <span class="tok-variable">saveAsJSONL</span>(<span class="tok-variable">trainingExamples</span>, <span class="tok-string">"fine_tuning_data.jsonl"</span>) :
+  <span class="tok-keyword">null</span>;
+
+<span class="tok-keyword">if</span> (<span class="tok-variable">trainingFile</span>) {
+  <span class="tok-variable">display</span>(<span class="tok-string">"Training data ready for download:"</span>);
+  <span class="tok-variable">display</span>(<span class="tok-variable">trainingFile</span>.<span class="tok-definition">downloadLink</span>);
+}</code></pre><div id="cell-10" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Fine-tuning management functions</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">fineTuningManager</span> = {
+  <span class="tok-comment">// Upload training file to OpenAI</span>
+  <span class="tok-keyword">async</span> <span class="tok-definition">uploadTrainingFile</span>(<span class="tok-definition">jsonlContent</span>) {
+    <span class="tok-keyword">if</span> (!<span class="tok-variable">openai</span>) <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> <span class="tok-definition">Error</span>(<span class="tok-string">"OpenAI client not initialized"</span>);
+
+    <span class="tok-keyword">const</span> <span class="tok-definition">file</span> = <span class="tok-keyword">await</span> <span class="tok-variable">openai</span>.<span class="tok-definition">files</span>.<span class="tok-definition">create</span>({
+      <span class="tok-definition">file</span>: <span class="tok-keyword">new</span> <span class="tok-definition">Blob</span>([<span class="tok-variable">jsonlContent</span>], { <span class="tok-definition">type</span>: <span class="tok-string">'application/jsonl'</span> }),
+      <span class="tok-definition">purpose</span>: <span class="tok-string">'fine-tune'</span>
+    });
+
+    <span class="tok-keyword">return</span> <span class="tok-variable">file</span>;
+  },
+
+  <span class="tok-comment">// Create fine-tuning job</span>
+  <span class="tok-keyword">async</span> <span class="tok-definition">createFineTuningJob</span>(<span class="tok-definition">fileId</span>, <span class="tok-definition">model</span> = <span class="tok-variable">config</span>.<span class="tok-definition">model</span>) {
+    <span class="tok-keyword">if</span> (!<span class="tok-variable">openai</span>) <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> <span class="tok-definition">Error</span>(<span class="tok-string">"OpenAI client not initialized"</span>);
+
+    <span class="tok-keyword">const</span> <span class="tok-definition">job</span> = <span class="tok-keyword">await</span> <span class="tok-variable">openai</span>.<span class="tok-definition">fineTuning</span>.<span class="tok-definition">jobs</span>.<span class="tok-definition">create</span>({
+      <span class="tok-definition">training_file</span>: <span class="tok-variable">fileId</span>,
+      <span class="tok-definition">model</span>: <span class="tok-variable">model</span>,
+      <span class="tok-definition">hyperparameters</span>: {
+        <span class="tok-definition">n_epochs</span>: <span class="tok-variable">config</span>.<span class="tok-definition">nEpochs</span>,
+        <span class="tok-definition">batch_size</span>: <span class="tok-variable">config</span>.<span class="tok-definition">batchSize</span>,
+        <span class="tok-definition">learning_rate_multiplier</span>: <span class="tok-variable">config</span>.<span class="tok-definition">learningRateMultiplier</span>
+      }
+    });
+
+    <span class="tok-keyword">return</span> <span class="tok-variable">job</span>;
+  },
+
+  <span class="tok-comment">// Check fine-tuning job status</span>
+  <span class="tok-keyword">async</span> <span class="tok-definition">checkJobStatus</span>(<span class="tok-definition">jobId</span>) {
+    <span class="tok-keyword">if</span> (!<span class="tok-variable">openai</span>) <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> <span class="tok-definition">Error</span>(<span class="tok-string">"OpenAI client not initialized"</span>);
+
+    <span class="tok-keyword">const</span> <span class="tok-definition">job</span> = <span class="tok-keyword">await</span> <span class="tok-variable">openai</span>.<span class="tok-definition">fineTuning</span>.<span class="tok-definition">jobs</span>.<span class="tok-definition">retrieve</span>(<span class="tok-variable">jobId</span>);
+    <span class="tok-keyword">return</span> <span class="tok-variable">job</span>;
+  },
+
+  <span class="tok-comment">// List fine-tuning jobs</span>
+  <span class="tok-keyword">async</span> <span class="tok-definition">listJobs</span>() {
+    <span class="tok-keyword">if</span> (!<span class="tok-variable">openai</span>) <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> <span class="tok-definition">Error</span>(<span class="tok-string">"OpenAI client not initialized"</span>);
+
+    <span class="tok-keyword">const</span> <span class="tok-definition">jobs</span> = <span class="tok-keyword">await</span> <span class="tok-variable">openai</span>.<span class="tok-definition">fineTuning</span>.<span class="tok-definition">jobs</span>.<span class="tok-definition">list</span>();
+    <span class="tok-keyword">return</span> <span class="tok-variable">jobs</span>;
+  }
+};
+
+<span class="tok-variable">display</span>(<span class="tok-string">"Fine-tuning management functions ready"</span>);</code></pre><div id="cell-11" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Interactive controls for fine-tuning process</span>
+<span class="tok-keyword">const</span> <span class="tok-definition">controls</span> = <span class="tok-variable">htl</span>.<span class="tok-definition">html</span><span class="tok-string">`</span>
+<span class="tok-string">  &lt;div style="padding: 20px; border: 1px solid #ddd; border-radius: 8px; margin: 10px 0;"&gt;</span>
+<span class="tok-string">    &lt;h3&gt;Fine-Tuning Controls&lt;/h3&gt;</span>
+
+<span class="tok-string">    &lt;div style="margin: 10px 0;"&gt;</span>
+<span class="tok-string">      &lt;label&gt;System Prompt for Training:&lt;/label&gt;&lt;br&gt;</span>
+<span class="tok-string">      &lt;textarea id="systemPrompt" rows="3" cols="80" placeholder="Enter system prompt for fine-tuning..."&gt;You are an AI assistant fine-tuned on specific domain knowledge.&lt;/textarea&gt;</span>
+<span class="tok-string">    &lt;/div&gt;</span>
+
+<span class="tok-string">    &lt;div style="margin: 10px 0;"&gt;</span>
+<span class="tok-string">      &lt;button id="regenerateExamples"&gt;Regenerate Training Examples&lt;/button&gt;</span>
+<span class="tok-string">      &lt;button id="downloadTrainingData"&gt;Download Training Data&lt;/button&gt;</span>
+<span class="tok-string">    &lt;/div&gt;</span>
+
+<span class="tok-string">    &lt;div style="margin: 10px 0;"&gt;</span>
+<span class="tok-string">      &lt;button id="uploadFile" </span>${!<span class="tok-variable">openai</span> ? <span class="tok-string">'disabled'</span> : <span class="tok-string">''</span>}<span class="tok-string">&gt;Upload to OpenAI&lt;/button&gt;</span>
+<span class="tok-string">      &lt;button id="startFineTuning" </span>${!<span class="tok-variable">openai</span> ? <span class="tok-string">'disabled'</span> : <span class="tok-string">''</span>}<span class="tok-string">&gt;Start Fine-Tuning&lt;/button&gt;</span>
+<span class="tok-string">      &lt;button id="checkStatus" </span>${!<span class="tok-variable">openai</span> ? <span class="tok-string">'disabled'</span> : <span class="tok-string">''</span>}<span class="tok-string">&gt;Check Status&lt;/button&gt;</span>
+<span class="tok-string">    &lt;/div&gt;</span>
+
+<span class="tok-string">    &lt;div id="status" style="margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 4px;"&gt;</span>
+<span class="tok-string">      Status: Ready to process text files from docs folder</span>
+<span class="tok-string">    &lt;/div&gt;</span>
+<span class="tok-string">  &lt;/div&gt;</span>
+<span class="tok-string">`</span>;
+
+<span class="tok-variable">display</span>(<span class="tok-variable">controls</span>);</code></pre><div id="cell-12" class="observablehq observablehq--cell"></div><pre data-language="js"><code class="language-js"><span class="tok-comment">// Event handlers for interactive controls</span>
+<span class="tok-keyword">let</span> <span class="tok-definition">currentJobId</span> = <span class="tok-keyword">null</span>;
+<span class="tok-keyword">let</span> <span class="tok-definition">uploadedFileId</span> = <span class="tok-keyword">null</span>;
+
+<span class="tok-comment">// Regenerate examples with custom system prompt</span>
+<span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#regenerateExamples'</span>).<span class="tok-definition">onclick</span> = () =&gt; {
+  <span class="tok-keyword">const</span> <span class="tok-definition">systemPrompt</span> = <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#systemPrompt'</span>).<span class="tok-definition">value</span>;
+  <span class="tok-keyword">const</span> <span class="tok-definition">newExamples</span> = <span class="tok-variable">createTrainingExamples</span>(<span class="tok-variable">sampleTexts</span>, <span class="tok-variable">systemPrompt</span>);
+
+  <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">`Generated </span>${<span class="tok-variable">newExamples</span>.<span class="tok-definition">length</span>}<span class="tok-string"> training examples with custom prompt`</span>;
+
+  <span class="tok-comment">// Update global training examples</span>
+  <span class="tok-variable">window</span>.<span class="tok-definition">currentTrainingExamples</span> = <span class="tok-variable">newExamples</span>;
+};
+
+<span class="tok-comment">// Download training data</span>
+<span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#downloadTrainingData'</span>).<span class="tok-definition">onclick</span> = () =&gt; {
+  <span class="tok-keyword">const</span> <span class="tok-definition">examples</span> = <span class="tok-variable">window</span>.<span class="tok-definition">currentTrainingExamples</span> || <span class="tok-variable">trainingExamples</span>;
+  <span class="tok-keyword">const</span> <span class="tok-definition">file</span> = <span class="tok-variable">saveAsJSONL</span>(<span class="tok-variable">examples</span>);
+
+  <span class="tok-comment">// Trigger download</span>
+  <span class="tok-keyword">const</span> <span class="tok-definition">a</span> = <span class="tok-variable">document</span>.<span class="tok-definition">createElement</span>(<span class="tok-string">'a'</span>);
+  <span class="tok-variable">a</span>.<span class="tok-definition">href</span> = <span class="tok-variable">file</span>.<span class="tok-definition">url</span>;
+  <span class="tok-variable">a</span>.<span class="tok-definition">download</span> = <span class="tok-string">'fine_tuning_data.jsonl'</span>;
+  <span class="tok-variable">a</span>.<span class="tok-definition">click</span>();
+
+  <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">'Training data downloaded'</span>;
+};
+
+<span class="tok-comment">// Upload file to OpenAI</span>
+<span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#uploadFile'</span>).<span class="tok-definition">onclick</span> = <span class="tok-keyword">async</span> () =&gt; {
+  <span class="tok-keyword">try</span> {
+    <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">'Uploading file to OpenAI...'</span>;
+
+    <span class="tok-keyword">const</span> <span class="tok-definition">examples</span> = <span class="tok-variable">window</span>.<span class="tok-definition">currentTrainingExamples</span> || <span class="tok-variable">trainingExamples</span>;
+    <span class="tok-keyword">const</span> <span class="tok-definition">jsonlContent</span> = <span class="tok-variable">examples</span>.<span class="tok-definition">map</span>(<span class="tok-definition">ex</span> =&gt; <span class="tok-variable">JSON</span>.<span class="tok-definition">stringify</span>(<span class="tok-variable">ex</span>)).<span class="tok-definition">join</span>(<span class="tok-string">'</span><span class="tok-literal">\n</span><span class="tok-string">'</span>);
+
+    <span class="tok-keyword">const</span> <span class="tok-definition">file</span> = <span class="tok-keyword">await</span> <span class="tok-variable">fineTuningManager</span>.<span class="tok-definition">uploadTrainingFile</span>(<span class="tok-variable">jsonlContent</span>);
+    <span class="tok-variable">uploadedFileId</span> = <span class="tok-variable">file</span>.<span class="tok-definition">id</span>;
+
+    <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">`File uploaded successfully. File ID: </span>${<span class="tok-variable">file</span>.<span class="tok-definition">id</span>}<span class="tok-string">`</span>;
+  } <span class="tok-keyword">catch</span> (<span class="tok-definition">error</span>) {
+    <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">`Upload failed: </span>${<span class="tok-variable">error</span>.<span class="tok-definition">message</span>}<span class="tok-string">`</span>;
+  }
+};
+
+<span class="tok-comment">// Start fine-tuning</span>
+<span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#startFineTuning'</span>).<span class="tok-definition">onclick</span> = <span class="tok-keyword">async</span> () =&gt; {
+  <span class="tok-keyword">try</span> {
+    <span class="tok-keyword">if</span> (!<span class="tok-variable">uploadedFileId</span>) {
+      <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">'Please upload a file first'</span>;
+      <span class="tok-keyword">return</span>;
+    }
+
+    <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">'Starting fine-tuning job...'</span>;
+
+    <span class="tok-keyword">const</span> <span class="tok-definition">job</span> = <span class="tok-keyword">await</span> <span class="tok-variable">fineTuningManager</span>.<span class="tok-definition">createFineTuningJob</span>(<span class="tok-variable">uploadedFileId</span>);
+    <span class="tok-variable">currentJobId</span> = <span class="tok-variable">job</span>.<span class="tok-definition">id</span>;
+
+    <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">`Fine-tuning job started. Job ID: </span>${<span class="tok-variable">job</span>.<span class="tok-definition">id</span>}<span class="tok-string">`</span>;
+  } <span class="tok-keyword">catch</span> (<span class="tok-definition">error</span>) {
+    <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">`Fine-tuning failed: </span>${<span class="tok-variable">error</span>.<span class="tok-definition">message</span>}<span class="tok-string">`</span>;
+  }
+};
+
+<span class="tok-comment">// Check status</span>
+<span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#checkStatus'</span>).<span class="tok-definition">onclick</span> = <span class="tok-keyword">async</span> () =&gt; {
+  <span class="tok-keyword">try</span> {
+    <span class="tok-keyword">if</span> (!<span class="tok-variable">currentJobId</span>) {
+      <span class="tok-keyword">const</span> <span class="tok-definition">jobs</span> = <span class="tok-keyword">await</span> <span class="tok-variable">fineTuningManager</span>.<span class="tok-definition">listJobs</span>();
+      <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">`Recent jobs: </span>${<span class="tok-variable">JSON</span>.<span class="tok-definition">stringify</span>(<span class="tok-variable">jobs</span>.<span class="tok-definition">data</span>.<span class="tok-definition">slice</span>(<span class="tok-literal">0</span>, <span class="tok-literal">3</span>), <span class="tok-keyword">null</span>, <span class="tok-literal">2</span>)}<span class="tok-string">`</span>;
+      <span class="tok-keyword">return</span>;
+    }
+
+    <span class="tok-keyword">const</span> <span class="tok-definition">job</span> = <span class="tok-keyword">await</span> <span class="tok-variable">fineTuningManager</span>.<span class="tok-definition">checkJobStatus</span>(<span class="tok-variable">currentJobId</span>);
+    <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">`Job Status: </span>${<span class="tok-variable">job</span>.<span class="tok-definition">status</span>}<span class="tok-string">. Fine-tuned model: </span>${<span class="tok-variable">job</span>.<span class="tok-definition">fine_tuned_model</span> || <span class="tok-string">'Not ready yet'</span>}<span class="tok-string">`</span>;
+  } <span class="tok-keyword">catch</span> (<span class="tok-definition">error</span>) {
+    <span class="tok-variable">controls</span>.<span class="tok-definition">querySelector</span>(<span class="tok-string">'#status'</span>).<span class="tok-definition">innerHTML</span> = <span class="tok-string">`Status check failed: </span>${<span class="tok-variable">error</span>.<span class="tok-definition">message</span>}<span class="tok-string">`</span>;
+  }
+};
+
+<span class="tok-variable">display</span>(<span class="tok-string">"Event handlers attached"</span>);</code></pre><div id="cell-13" class="observablehq observablehq--cell"><div><h2 id="instructions" tabindex="-1"><a href="#instructions">Instructions</a></h2>
+<ol>
+<li><strong>Add your OpenAI API key</strong> in the configuration cell above</li>
+<li><strong>Create a <code>docs</code> folder</strong> in your notebook’s directory and add <code>.txt</code> files with your sample content</li>
+<li><strong>Refresh the notebook</strong> to load your text files</li>
+<li><strong>Use the controls</strong> to:
+<ul>
+<li>Customize the system prompt for your fine-tuning</li>
+<li>Generate and download training data</li>
+<li>Upload to OpenAI and start fine-tuning</li>
+<li>Monitor the fine-tuning progress</li>
+</ul>
+</li>
+</ol>
+<p>The notebook will automatically process your text files and create training examples suitable for fine-tuning. You can customize the system prompt and training parameters to match your specific use case.</p>
+</div></div></main>
+  
+
+<style type="text/css">:root {
+  --syntax-link: var(--theme-foreground-focus);
+  --syntax-keyword: #e36209;
+  --syntax-atom: #032f62;
+  --syntax-literal: #6f42c1;
+  --syntax-string: #22863a;
+  --syntax-comment: var(--theme-foreground-muted);
+  --syntax-invalid: var(--theme-error);
+  --syntax-definition: #005cc5;
+  --syntax-variable: var(--theme-foreground-alt);
+  --syntax-meta: #d73a49;
+}
+
+:root {
+  --theme-background-b: color-mix(in srgb, var(--theme-foreground) 4%, var(--theme-background-a));
+  --theme-background: var(--theme-background-a);
+  --theme-background-alt: var(--theme-background-b);
+  --theme-foreground-alt: color-mix(in srgb, var(--theme-foreground) 90%, var(--theme-background-a));
+  --theme-foreground-muted: color-mix(in srgb, var(--theme-foreground) 60%, var(--theme-background-a));
+  --theme-foreground-faint: color-mix(in srgb, var(--theme-foreground) 50%, var(--theme-background-a));
+  --theme-foreground-fainter: color-mix(in srgb, var(--theme-foreground) 30%, var(--theme-background-a));
+  --theme-foreground-faintest: color-mix(in srgb, var(--theme-foreground) 14%, var(--theme-background-a));
+  --theme-error: #e7040f;
+  color-scheme: light;
+}
+
+:root {
+  --theme-foreground: #473d3a;
+  --theme-foreground-focus: #5028c1;
+  --theme-background-a: #efeee9;
+}
+</style></body></html>

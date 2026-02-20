@@ -10,7 +10,7 @@
   </script>
   <script id="21" type="text/markdown">
     ## Create your First Project Folder and Set Up the Notebook Kit
-    The desktop app is a notebook editor that creates, edits and saves files that are, basically, HTML (and have .html as their extension). You will be editing these files inside folders that are also set up to use the [**Observable Notebook Kit**](https://observablehq.com/notebook-kit/kit) in order to turn your notebooks into publishable web sites.
+    The desktop app is a notebook editor that creates, edits and saves, basically, HTML files. (These files have .html as their extension). You will be editing these files inside folders that are organized to use the [**Observable Notebook Kit**](https://observablehq.com/notebook-kit/kit). We set all this up in order to be able turn your notebooks into publishable web sites, locally, at first.
   </script>
   <script id="7" type="text/markdown">
     1. In whatever way is most comfortable for you (and best organized) create a folder called something appropriate like: `ObservableNotebooks`. <!-- (Note: You will move/upload this folder to your shared-with-the Google Drive folder early in the semester.) -->
@@ -65,5 +65,22 @@
     </html>
     ````
     11. Finally (for now) in your terminal, type: `npm run preview`. Then type `h` and hit return. **Read and explore what is displayed**.
+  </script>
+  <script id="22" type="module">
+    const notecell = md`### Note
+
+    Even once you've done all the above and ironed out any bugs, you may still be surprised when you are trying to \`preview\` (by running the script and then hitting \`o+return\` to 'Open' your notebook as a site).
+
+    You may get a **\`file not found\`** error because the site that Observable builds for you expects to find a notebook HTML file named \`index.html\` as the default entrance to the website it has just built. An immediate fix is to type at the end of whatever is in you browser's URL box, add the file name of your notebook: \`<whateverucalledit>.html\`. Alternatively, you could rename one of your notebook files as \`index.html\`.
+
+    \`\`\`
+    blockcode
+    \`\`\`
+    `;
+
+    display(notecell);
+  </script>
+  <script id="23" type="module" pinned="">
+    notecell.innerHTML
   </script>
 </notebook>
