@@ -4,13 +4,70 @@
   <script id="1" type="text/markdown">
     # *Setting up*<br>GitHub &amp; GitHub Pages
 
-    *to turn your local websites into public, internet-accessible websites*
+    *more setup, but most of it you only need to do once and this will allow you*<br>***to turn your local notebook developed projects into internet-accessible websites***
 
     ---
   </script>
   <script id="12" type="text/markdown">
-    ## Publishing your project to the web using GitHub Pages
-    ... ***Coming Soon !*** ...
+    #### Install `git` • initialize a repository • make your first `commit`
+    1. From the `Terminal` command line, type:<br>&nbsp;`git version`<br>to check if it is already installed.
+    2. If you do *not* have **`git`** installed on your computer then go to [git-scm](https://git-scm.com/install/mac) and follow instructions to install it. (You may also have to install `homebrew`—this is all good and doesn’t take long.)
+    3. In the `Terminal`, navigate to your project folder (the first one, probably named `ObservableNotebooks` or similar).
+    4. Once you are *in* the folder, type:<br>&nbsp;`git init`<br>This initiates a local *repository*.
+    5. For good housekeeping, you now need to make a `.gitignore` file in your project folder. This file begins with a full-stop and, once created, is invisible-by-default when using your Finder or file system. So, if you haven’t done this before, you may need help (or googling) to create it with a text editor. Anyway, its contents should be as follows:
+    ```
+        *.log
+        npm-debug.log*
+        yarn-debug.log*
+        yarn-error.log*
+        .DS_Store
+        /dist/
+        node_modules/
+    ```
+    6. Now you `add` all the files that git will track in your repository, using this command:<br>&nbsp;`git add .`<br>(That’s **space + full-stop** after `add`)
+    7. Finally, you commit all these changes to your local repository with:<br>&nbsp;`git commit -m "first commit"`<br>(This `-m` introduces a ‘message’ surrounded with quotes, with a brief comment on your `commit`.)
+    <!-- - need to create or copy: `.github/workflows/publish.yml` into your project
+    - make sure workflows are triggered correctly -->
+    ---
+    <!--
+    git init
+    copy .github/workflows/publish.yml from an existing repo
+    git add *
+    git commit -m "first commit"
+    -->
+  </script>
+  <script id="13" type="text/markdown">
+    #### Create an `origin` repo(sitory) on GitHub • `push` your `first commit` to GitHub
+    1. If you don’t already have a GitHub account, create a free one on [GitHub.com](github.com).
+    2. Click ‘New Repository’ (usually on the upper right; you may have to click the `Repositories` tab).
+    3. Choose an unused name for the repo and then scroll down to make sure the `Visibility` of the repo is `public`. Also make sure that GitHub will *not* be adding `README, .gitignore, or license`.
+    4. Click ‘Create Repository’ (lower right).
+    5. GitHub provides the next commands you need to type into your Terminal command line. Scroll down, if necessary, to ‘...or push an existing repository from the command line’ and used the ‘copy’ button (on the right) to copy the three commands. Then go back to your Terminal command line and simply `paste` in these commands, hitting return once you’ve done so.
+
+    Now your local repository is set up to ‘track’ the repo on GitHub and whenever you `commit` and `push` work that you have done locally, it will be sent to GitHub (where you can share the work and collaborate). The final step is to use GitHub Pages to automatically build you an updated website whenever you `push` changes.
+    <!-- - need to create or copy: `.github/workflows/publish.yml` into your project
+    - make sure workflows are triggered correctly -->
+    ---
+    <!--
+    git init
+    copy .github/workflows/publish.yml from an existing repo
+    git add *
+    git commit -m "first commit"
+    -->
+  </script>
+  <script id="14" type="text/markdown">
+    #### Setup GitHub Pages to build and deploy your site whenever you `push` new changes
+    1. Click this link to [a file that helps publish your site](https://github.com/framework-dev/useful_files/blob/main/publish.yml).
+    2. Click the ‘Download (icon)’ button to download the file and then move it into your project directory.
+    3. Now, from the Terminal command line, *in* your project directory, type these two commands:<br>&nbsp;`mkdir -p .github/workflows/`<br>&nbsp;`mv publish.yml .github/workflows/`
+    4. Then, `commit` and `push` these changes to GitHub with these commands:<br>&nbsp;`git add .`<br>&nbsp;`git commit -m "add publish workflow"`<br>&nbsp;`git push`
+
+    You have added a `publish.yml` file to a special directory where GitHub will find it and use it to build a website once you have done a little more to set up GitHub Pages, as follows:
+    1. Go to GitHub and open your project’s repository. Click the ‘Settings’ tab.
+    2. Click the ‘Pages’ item from side bar on the left.
+    3. Under ‘Build and deployment’ change ‘Deploy from a branch’ to ‘GitHub Actions’.
+
+    You may see errors at this stage but don’t worry about them (yet). The next time you make a change to your project, the site will be built and deployed. And, if you go to the GitHub repo -> Settings -> Pages again, you will see the URL for your project’s site, ready to be accessed publicly on the web. The URL will be of the form:<br>&nbsp;`https://<your-user-name>.github.io/<repo-name>`.
     <!-- - need to create or copy: `.github/workflows/publish.yml` into your project
     - make sure workflows are triggered correctly -->
     ---
