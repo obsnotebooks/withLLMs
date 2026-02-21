@@ -1,1 +1,0 @@
-import{d as e}from"./index-BoQGnnIN.js";e({root:document.getElementById("cell-1"),expanded:[],variables:[]},{id:1,body:()=>{window.location.replace("setupnotebookkit.html")},inputs:[],outputs:[],output:void 0,assets:void 0,autodisplay:!1,autoview:void 0,automutable:void 0});

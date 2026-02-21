@@ -1,2 +1,0 @@
-import{d as e}from"./index-BoQGnnIN.js";e({root:document.getElementById("cell-9"),expanded:[],variables:[]},{id:9,body:()=>document.getElementById("display").innerText=`This is the innerText of an HTML div element whose id is "display".
-This text was put into the element by JavaScript in the following cell.`,inputs:[],outputs:[],output:void 0,assets:void 0,autodisplay:!0,autoview:void 0,automutable:void 0});
