@@ -1,14 +1,17 @@
 <!doctype html>
 <notebook theme="cotton">
-  <title>Twenty Questions</title>
+  <title>Eliza Effect Twenty Questions</title>
   <script id="1" type="text/markdown">
-    # Twenty Questions
+    # [Eliza Effect](https://en.wikipedia.org/wiki/ELIZA_effect) Twenty Questions
   </script>
   <script id="5" type="text/markdown">
-    *I'm thinking of something. As me up to 20 ‘yes/no’ questions about it or guess.*
+    ---
+    ***I'm thinking of something.***
+
+    *Ask me up to 20 ‘yes/no’ questions about it an/or guess when you’re ready.*
   </script>
   <script id="6" type="module">
-    const answer = view(Inputs.button("Answer", {reduce: () => Math.random() > 0.5 ? "Yes" : "No"}));
+    const answer = view(Inputs.button("Answer", {value: "Click ‘Answer’ for my response.", reduce: () => Math.random() > 0.5 ? "Yes" : "No"}));
   </script>
   <script id="7" type="module">
     answer
