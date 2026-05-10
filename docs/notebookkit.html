@@ -1,22 +1,22 @@
 <!doctype html>
 <notebook theme="air">
   <title>Setting upObservable Notebook Kit</title>
-  <script id="1" type="text/markdown">
+  <script id="0" type="text/markdown">
     # *Setting up*<br>Observable Notebook Kit
 
     *in order to develop notebooks into websites* ***locally***
 
     ---
   </script>
-  <script id="21" type="text/markdown">
+  <script id="1" type="text/markdown">
     ## Create your First Project Folder and Set Up the Notebook Kit
     The desktop app is a notebook editor that creates, edits and saves, basically, HTML files. (These files have .html as their extension). You will be editing these files inside folders that are organized to use the [**Observable Notebook Kit**](https://observablehq.com/notebook-kit/kit). We set all this up in order to be able turn your notebooks into publishable web sites, locally, at first.
   </script>
-  <script id="7" type="text/markdown">
+  <script id="2" type="text/markdown">
     1. In whatever way is most comfortable for you (and best organized) create a folder called something appropriate like: `ObservableNotebooks`. <!-- (Note: You will move/upload this folder to your shared-with-the Google Drive folder early in the semester.) -->
     2. Inside this folder make another folder called `docs`. This is where you will create and store your notebook files.
     3. Open **Observable Desktop** and then edit the `Untitled` default document that appears. Edit the title and create a few more **MarkDown** (`md`) cells with some (placeholder) text in them.
-    4. Select `File —> Save As...` to save what you've done, with a name based on the title you chose, inside the **`docs`** folder of your project folder.
+    4. Select `File —> Save As...` to save what you've done as **`index.html`**, inside the **`docs`** folder of your project folder. (This `index.html` file is special and we’ll explain why later.)
     5. Now use your Terminal program and its Command Line Interface (CLI) to navigate to your `ObservableNotebooks` project folder. (If you haven't done this before, we’ll do it Together First In Workshop and/or **ask questions**.)
     6. And, if you’ve never done so before, you will need to install `node.js` and a *Package Manager* called `npm` (Node Package Manager). Go to step 8 if you already have `npm` installed, otherwise:
     7. Download the installer for `node.js` that is best for your computer. If you have a Mac [download from here](https://nodejs.org/en/download). Verify at the terminal with (on separate lines):<br>`node -v`<br>`npm -v`<br> (which will show the installed versions of these packages).
@@ -65,14 +65,5 @@
     </html>
     ````
     11. Finally (for now) in your terminal, type: `npm run preview`. Then type `h` and hit return. **Read and explore what is displayed**.
-  </script>
-  <script id="22" type="text/markdown">
-    ### Note
-
-    Even once you've done all the above and ironed out any bugs, you may still be surprised when you are trying to `preview` (by running the script and then hitting `o+return` to ‘Open’ your notebook as a site).
-
-    You may get a **`file not found`** error because the site that Observable builds for you expects to find a notebook HTML file named `index.html` as the default entrance to the website it has just built. An immediate fix is to type at the end of whatever is in you browser's URL box, add the file name of your notebook: `<whateverucalledit>.html`. Alternatively, you could rename one of your notebook files as `index.html`.
-
-    ---
   </script>
 </notebook>
