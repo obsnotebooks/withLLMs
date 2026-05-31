@@ -5,5 +5,8 @@
   "scripts": {
     "preview": "notebooks preview --root docs --template docs/nochrome.tmpl",
     "build": "notebooks build --root docs --template docs/nochrome.tmpl --out ../dist -- docs/*.html"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0"
   }
 }
