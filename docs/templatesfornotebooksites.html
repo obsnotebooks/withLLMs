@@ -1,0 +1,53 @@
+<!doctype html>
+<notebook theme="cotton">
+  <title>Templates</title>
+  <script id="1" type="text/markdown">
+      # Templates
+  </script>
+  <script id="2" type="text/markdown">
+    13. Now open up your plain text editor (see above). Find and edit the file `package.json` (which has been created by the previous step) so that it looks like this (it’s the `scripts` part that needs adding):
+    ````json
+    {
+      "dependencies": {
+        "@observablehq/notebook-kit": "^2.0"
+      },
+      "scripts": {
+        "preview": "notebooks preview --root nbks",
+        "build": "notebooks build --root nbks --out ../docs -- *.html"
+      }
+    }
+    ````
+    10. This file refers to another, a template file, called `nochrome.tmpl` so now you also need to create this file inside your `docs` folder. Make a new plain text file using you editor and save it in the `docs` folder. **Make sure** the file name has that **`.tmpl`** extension. Its contents should look like this:
+    ````html
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+          @import url("observable:styles/index.css");
+          * {
+            margin-top:0 !important;
+          }
+          html {
+            background-color: white;
+            margin:0;
+            padding:2vw; /* change this to 0 to override default */
+            border:0;
+          }
+          body {
+            max-width: none;
+            margin:0;
+            padding:0;
+            border:0;
+          }
+        </style>
+      </head>
+      <body>
+        <main></main>
+      </body>
+    </html>
+    ````
+
+  </script>
+</notebook>
