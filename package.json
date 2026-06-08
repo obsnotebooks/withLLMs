@@ -3,8 +3,8 @@
     "@observablehq/notebook-kit": "^1.5.1"
   },
   "scripts": {
-    "preview": "notebooks preview --root docs --template docs/nochrome.tmpl",
-    "build": "notebooks build --root docs --template docs/nochrome.tmpl --out ../dist -- docs/*.html"
+    "preview": "notebooks preview --root nbks --template nbks/custom.tmpl",
+    "build": "notebooks build --root nbks --template nbks/custom.tmpl --out ../dist -- nbks/*.html"
   },
   "devDependencies": {
     "esbuild": "^0.28.0"
